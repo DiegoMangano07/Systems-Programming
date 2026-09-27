@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-09-13 Sun 20:52 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Getting Started with C and Systems Programming</title>
+<meta name="author" content="Antonio Carzaniga" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+ body { font-family: "Noto Sans", Helvetica, sans-serif;
+	font-size: medium;
+	padding: 2em;
+	margin: auto;
+	max-width: 50em; }
+ .title  { text-align: left;
+	   padding-bottom: 0.5ex;
+	   margin-bottom: 2ex;
+	   border-bottom: 2pt solid #000000; }
+.subtitle { text-align: right; font-size: medium; font-weight: bold; margin-top:0; }
+.todo   { font-family: "Hack", monospace; color: red; }
+.done   { font-family: "Hack", monospace; color: green; }
+.priority { font-family: "Hack", monospace; color: orange; }
+.tag    { background-color: #eeeeee; font-family: "Hack", monospace;
+	  padding: 2px; font-size: 80%; font-weight: normal; }
+.timestamp { color: #bebebe; }
+.timestamp-kwd { color: #5f9ea0; }
+.org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+.org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+.org-center { margin-left: auto; margin-right: auto; text-align: center; }
+.underline { text-decoration: underline; }
+h2 { border-top: 1pt solid #000000;
+     margin-top: 3ex; }
+#postamble p, #preamble p { font-size: 90%; margin: .2em; }
+p.verse { margin-left: 3%; }
+pre {
+    border: 1px solid #cccccc;
+    box-shadow: 3px 3px 3px #eeeeee;
+    padding: 8pt;
+    font-family: "Hack", monospace;
+    overflow: auto;
+    margin: 0;
+    background-color: #e8e8e8;
+}
+pre.src {
+    position: relative;
+    overflow: auto;
+}
+pre.example {
+    position: relative;
+    overflow: auto;
+    border-style: solid;
+    border-top-style: none;
+    border-bottom-style: none;
+    border-left-style: solid;
+    border-right-style: solid;
+    border-width: 6pt;
+    border-color: #d0d0d0;
+}
+code { 
+    font-family: "Hack", monospace;
+    padding-left: 1pt;
+    padding-right: 1pt;
+    background-color: #ebebeb;
+}
+a:link {
+    color: #603000;
+    text-decoration: none;
+    font-weight: bold; 
+}
+a:visited {
+    color: #603010;
+    text-decoration: none;
+    font-weight: bold; 
+}
+table { margin: auto; border-collapse:collapse; }
+thead { background-color: #f0f0f0; font-weight: bold; }
+caption.t-above { caption-side: top; }
+caption.t-bottom { caption-side: bottom; }
+td, th { vertical-align:top; }
+th.org-right  { text-align: center;  }
+th.org-left   { text-align: center;   }
+th.org-center { text-align: center; }
+td.org-right  { text-align: right;  }
+td.org-left   { text-align: left;   }
+td.org-center { text-align: center; }
+dt { font-weight: bold; }
+.footpara { display: inline; }
+.footdef  { margin-bottom: 1em; }
+.figure { padding: 1em; }
+.figure p { text-align: center; }
+.equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+}
+.equation {
+    vertical-align: middle;
+}
+.equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+}
+.inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+}
+#org-div-home-and-up { text-align: right; font-size: 70%; white-space: nowrap; }
+textarea { overflow-x: auto; }
+.linenr { font-size: smaller }
+.code-highlighted { background-color: #ffff00; }
+.org-info-js_info-navigation { border-style: none; }
+#org-info-js_console-label { font-size: 10px; font-weight: bold; white-space: nowrap; }
+.org-info-js_search-highlight { background-color: #ffff00; color: #000000; font-weight: bold; }
+.org-svg { }
+.face-builtin { color: #338033; }
+.face-comment { color: #5C7A99; }
+.face-comment-delimiter { color: #5C7A99; }
+.face-constant { color: #335980; }
+.face-doc { color: #80335A; }
+.face-function-name { color: #3D3380; font-weight: bold; }
+.face-keyword { color: #000000; font-weight: bold; }
+.face-preprocessor { color: #338033; }
+.face-string { color: #648033; font-style: italic; }
+.face-type { color: #803333; }
+.face-variable-name { color: #333380; }
+  /*]]>*/-->
+</style>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Getting Started with C and Systems Programming</h1>
+<p>
+Our goal is to learn the basics of C and later perhaps also C++ as
+general-purpose programming languages but also as <i>systems</i> languages.
+C and C++ are mature and powerful languages that come with rich and,
+especially for C++, vast standard libraries.  Mastering them takes
+decades of experience, as well as a keen attention to details.  It is
+a long and fascinating journey. This is an <i>introduction</i> to C and C++
+and to systems programming.  These are the first steps in that
+wonderful journey.
+</p>
+
+<p>
+We do not intend to be complete in our treatment of C or C++.
+Absolute correctness is not a primary goal either. Insted, we want to
+develop basic knowledge and, above all, good intuitions.  We want to
+learn <i>enough</i> of C and C++, so as to be able to develop simple
+programs but also more fundamentally to understand how such programs
+interact with their own execution environment and with other programs.
+This is what <i>systems</i> programming is about: you as a programmer
+design programs that interact with other programs or components that
+are part of a &ldquo;system&rdquo;.
+</p>
+<div id="outline-container-orgf25150d" class="outline-2">
+<h2 id="orgf25150d">Preliminaries</h2>
+<div class="outline-text-2" id="text-orgf25150d">
+<p>
+We do not start from scratch with programming.  We presume that you
+have <i>some</i> experience with programming.  We also assume that you are
+somewhat familiar with the primary syntactic structures of C, which
+are also fundamental for C++.  However, don&rsquo;t worry: you will have
+plenty of time and resources to review and practice, so all you really
+need is a bit of intuition.
+</p>
+
+<p>
+We intend to show the &ldquo;nuts and bolts&rdquo; of programming with C.  We
+directly use basic tools such as editors, compilers, linkers, and
+debuggers to expose and to better understand the build process and
+ultimately the programs themselves.  To be sure, the tools we use are
+very sophisticated.  They are not &ldquo;basic&rdquo; in that sense.  And of
+course they can also be integrated within modern development
+environments.  However, we use them at least initially with very
+little automation and integration.  This is to emphasize and
+understand the role of each tool, which ultimately gives us a better
+understanding of the programs.
+</p>
+
+<p>
+For our purposes, a C program consists of one or more simple files of
+text.  You must be at least minimally familiar with files and the file
+system on your computer, and you must also be able to create and edit
+a text file.  To do that, you should use a good text editor.  The
+absolute best one by a wide margin&mdash;trust me!&mdash;is <a href="https://www.gnu.org/software/emacs/">Emacs</a>.  But of
+course, feel free to use something else.  Whatever makes you happy.
+</p>
+
+<p>
+Once we have a program, we must compile it to obtain an &ldquo;executable&rdquo;
+version of the program.  This is another file that we can actually
+run.  In running the program, we might want to pass some input data to
+the program, and then read the output that the program produces.  Or
+perhaps we might want to use the content of a file or the output of
+another program as input.  And there are many other things we might
+want to do with programs and their input and output.  We do all that
+through a command shell.  So, that is also something you must be
+familiar with, at least to some extent.
+</p>
+
+<p>
+This is a <i>read-do</i> document.  The reading part is important.  Don&rsquo;t
+rush through it.  Don&rsquo;t just skim the text.  There isn&rsquo;t so much text
+anyway, so read it carefully. Read one paragraph at a time, sometime
+one sentence at a time.  Don&rsquo;t worry if you don&rsquo;t understand
+everything at first.  You can always go back to the text, and if you
+do, you will find that there are deeper and deeper layers.
+</p>
+
+<p>
+Still, you should strive to get at least a basic and intuitive idea of
+the concepts described in the text.  With that basic understanding,
+you should then immediately try to put things into practice with the
+many examples and exercises listed within the text.  You should also
+practice with other examples that you create and experiment with out
+of your own curiosity.  This is the <i>do</i> part.  And it is equally
+important.  Don&rsquo;t skip it!  Go through every exercise, possibly
+experimenting with variants of the code presented here.  Trust me,
+this is the best way to learn programming in C, Systems Programming,
+programming in general&mdash;or anything else, really.
+</p>
+
+<p>
+I also encourage you to follow your curiosity and explore the
+languages and libraries both in range and in depth.  A good way to do
+that is to consult the excellent documentation available at
+<a href="https://en.cppreference.com/">https://en.cppreference.com/</a>.  Even if you don&rsquo;t feel like exploring,
+that documentation is still an essential reference and should be your
+primary source to accompany you in this journey.
+</p>
+</div>
+</div>
+<div id="outline-container-orgdd647c5" class="outline-2">
+<h2 id="orgdd647c5">Let&rsquo;s Go!</h2>
+<div class="outline-text-2" id="text-orgdd647c5">
+<p>
+It is good to start with examples.  Let&rsquo;s try one of the simplest C
+programs there is.  This is the program:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdio.h&gt;</span>
+
+<span class="face-type">int</span> <span class="face-function-name">main</span>() {
+    printf(<span class="face-string">"Hello darkness, my old friend!</span><span class="face-escape">\n</span><span class="face-string">"</span>);
+}
+</code></pre>
+</div>
+
+<p>
+Since this is our very first example, let&rsquo;s go through the basic steps
+of editing, compiling, and running the program.  Indeed this is the
+purpose of the first example. First of all, I suggest you create a
+directory in which to experiment with this first program.  Using the
+command shell, from some place in your file system, run the following
+commands:
+</p>
+
+<pre class="example" id="org91004b6">
+$ mkdir example1 
+$ cd example1 
+</pre>
+
+<p>
+Notice that the prefix <code>$</code> is the shell prompt, and therefore is not
+part of the commands themselves.  We show the shell prompt in all our
+shell examples to distinguish a command from its output.
+</p>
+
+<p>
+You are now in the <code>example1</code> directory.  Now, use your favorite text
+editor to create a file called <code>ciao.c</code> that contains the program
+listed above (&ldquo;<code>#include &lt;stdio.h&gt;</code> &hellip;&rdquo;).  Notice that the code
+listed in this document is shown as it might be displayed by a good
+text editor, with colors and special font properties that highlight
+some syntactic elements of the code.  This code highlighting might be
+different in your editor and in any case is not really part of the
+program, which must in fact be a plain-text file.
+</p>
+
+<p>
+When you&rsquo;re done editing, make sure that you have the program file
+(<code>ciao.c</code>) and that the file indeed contains those lines of code in
+plain text.  You can check that with a couple of shell commands:
+</p>
+
+<pre class="example" id="org4ad6824">
+$ ls
+ciao.c
+$ cat ciao.c
+#include &lt;stdio.h&gt;
+
+int main() {
+    printf("Hello darkness, my old friend!\n");
+}
+</pre>
+
+<p>
+If this is not what you get, then there might be something wrong with
+your text editor.  Unfortunately, some editors will mess things up
+because they don&rsquo;t write files in plain text format.  As I said, you
+should use a good text editor, preferably one used specifically by
+programmers.  Anyway, if you&rsquo;re stuck, this is a good time to ask your
+hacker friend or your friendly teacher to help you out. (Yes, everyone
+should have a hacker friend.  And yes, your teacher <i>is</i> friendly and
+happy to help you, and he likes to think he&rsquo;s a bit of a hacker, too.
+So, there, you might already have a hacker friend!)
+</p>
+
+<p>
+Now I&rsquo;m assuming you have your first C program saved in a file called
+<code>ciao.c</code> in your current directory.  It is now time to compile the
+program.  To do that, we will invoke a compiler from the command
+shell.  You should do the same.
+</p>
+
+<pre class="example" id="org98f1f6b">
+$ cc ciao.c -o ciao
+$ ls
+ciao  ciao.c
+</pre>
+
+<p>
+As in this shell session, the compiler should terminate without any
+output on the terminal, and at the same time it should create a file
+called <code>ciao</code>.  This is our executable program, which we can now run
+like so:
+</p>
+
+<pre class="example" id="orgacebd07">
+$ ./ciao 
+Hello darkness, my old friend!
+</pre>
+
+<p>
+Is this what you get, too?  If you didn&rsquo;t even try, then you should do
+it right now.  Seriously, <i>do it now!</i> Remember, this is a read-do
+document, and practicing is the best way to learn.  Anyway, if that is
+what you got, then great!  You edited, compiled, and executed your
+first C program.  Congratulations!  Or perhaps it wasn&rsquo;t your first C
+program.  Still, good.
+</p>
+
+<p>
+But what if that is not what you got?  Well, that&rsquo;s an excellent
+question. (Thank you for asking!)  Let&rsquo;s see what can go wrong even
+with this simple example.
+</p>
+</div>
+<div id="outline-container-org7ea81f5" class="outline-3">
+<h3 id="org7ea81f5">Troubleshooting</h3>
+<div class="outline-text-3" id="text-org7ea81f5">
+<p>
+I&rsquo;m assuming you have the <code>ciao.c</code> program in the current directory of
+your command shell.  We checked that earlier, and you should have
+alreay fixed any issue with that, possibly with the help of your
+hacker friend.
+</p>
+
+<p>
+Next step: you also need to have a C compiler installed on your
+computer that you can invoke with the <code>cc</code> command.  This means that
+the executable must be called <code>cc</code>, and that your command shell must
+be configured to find it.  If that is not the case, then you would
+probably get an error message from the command shell:
+</p>
+
+<pre class="example" id="orgd8e031b">
+$ cc -o ciao ciao.c
+Command 'cc' not found.
+</pre>
+
+<p>
+Perhaps you do have a C compiler, but it has a different name.  Other
+common ones are <code>gcc</code> and <code>clang</code>.  So, you could instead try:
+</p>
+
+<pre class="example" id="org813539e">
+$ clang ciao.c -o ciao
+$ ls
+ciao  ciao.c
+$ ./ciao 
+Hello darkness, my old friend!
+</pre>
+
+<p>
+If that&rsquo;s what you get, then you&rsquo;re good.  You just need to remember
+to invoke <code>clang</code> instead of <code>cc</code>.  If on the other hand that does not
+work either, then perhaps the compiler is there but your command shell
+can&rsquo;t find it.  Or perhaps more likey it&rsquo;s not there.  Or it&rsquo;s there
+but it fails to compile, perhaps because it can&rsquo;t find the <code>stdio.h</code>
+header file, perhaps because that doesn&rsquo;t exist or&hellip;  Whatever.  This
+is where you should reach out to your hacker friend to help you set
+things up.  What you need to do is probably pretty simple, but these
+things tend to be different from one system to another, and they also
+tend to change over time as system configurations evolve.  So it makes
+no sense for us to try to deal with such details here.  As I said, ask
+your hacker friend to fix things up for you here.
+</p>
+
+<p>
+I&rsquo;m now assuming you can run a correctly installed and configured
+compiler from your command shell.  What else can go wrong?  Many
+things.  The most common problem is that there are some errors in the
+program code.  Our first program is pretty simple, and you probably
+copied and pasted the code above straight into your editor.  So it is
+unlikely you made programming mistakes.  Still, you might have typed
+something wrong or you might have forgotten some punctuation here and
+there.  Let&rsquo;s see some examples.
+</p>
+
+<pre class="example" id="org5e64f2d">
+$ cc -o ciao ciao.c
+ciao.c: In function ‘main’:
+ciao.c:4:5: warning: implicit declaration of function ‘print’; did you mean ‘printf’? [-Wimplicit-function-declaration]
+    4 |     print("Ciao!\n");
+      |     ^~~~~
+      |     printf
+/bin/ld: /tmp/cc7SyOrr.o: in function `main':
+ciao.c:(.text+0x18): undefined reference to `print'
+collect2: error: ld returned 1 exit status
+</pre>
+
+<p>
+Here the compiler tells you that your program uses a function called
+<code>print</code> that the compiler doesn&rsquo;t know anything about.  This is a
+typo.  That is, you made a mistake in typing the program text.  In
+fact, here the compiler also suggests the proper fix: &ldquo;<code>did you mean
+'printf'?</code>&rdquo; Yes, the program we intended to write uses <code>printf</code>, not
+<code>print</code>.  You can fix this error by going back to line four of the
+program (&ldquo;<code>ciao.c:4</code>&rdquo;) and replace <code>print</code> with <code>printf</code>.
+</p>
+
+<p>
+Here&rsquo;s another example:
+</p>
+
+<pre class="example" id="orga5105d0">
+$ cc ciao.c -o ciao
+ciao.c: In function ‘main’:
+ciao.c:4:47: error: expected ‘;’ before ‘}’ token
+    4 |     printf("Hello darkness, my old friend!\n")
+      |                                               ^
+      |                                               ;
+    5 | }
+      | ~                                              
+</pre>
+
+<p>
+Again, the compiler tells you what is wrong with your code.  You
+forgot a semicolon (<code>;</code>) at the end of the <code>printf</code> statement.  It is
+easy to make mistakes like this one, but that&rsquo;s okay, since these are
+also the easiest mistakes to find and fix.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org62c017c" class="outline-2">
+<h2 id="org62c017c">Basic Input/Output</h2>
+<div class="outline-text-2" id="text-org62c017c">
+<p>
+You develop programs to <i>do something.</i> This means that you want your
+program to interact with the outside world, by which we mean the world
+<i>outside of the program itself,</i> not necessarily out on the street.
+Typically, that means displaying something onto a screen and reading
+something from the keyboard.  Or perhaps your program reads and writes
+data from and to files or network connections.  Whatever.  C programs
+can do that and a million other things, of course.  But for now we
+consider a few very basic input and output mechanisms.  We start with
+formatted output and then cover simple input and output one byte at a
+time.  However, even before that, let&rsquo;s see a bit more in detail what
+we mean by <i>input</i> and <i>output.</i>
+</p>
+</div>
+<div id="outline-container-org8d3cda0" class="outline-3">
+<h3 id="org8d3cda0">Input/Output Streams</h3>
+<div class="outline-text-3" id="text-org8d3cda0">
+<p>
+The input and output we consider here are <i>streams of bytes.</i> A
+program is automatically connected to a &ldquo;standard input&rdquo; stream and a
+&ldquo;standard output&rdquo; stream.  You as the programmer don&rsquo;t have to
+explicitly open or close those streams.  The execution environment
+does that automatically for you.  When you run the program from a
+terminal application, the standard input and standard output of the
+program are connected directly to the terminal application.  So, what
+you type into the terminal application goes into the standard input
+stream of the program, and what the program outputs onto its standard
+output stream goes to the terminal application that then displays some
+of that output onto the terminal window.
+</p>
+
+<p>
+Anyway, for now, at the most basic level, what the program reads and
+writes is a stream of <i>bytes,</i> meaning a sequence of integer values
+between 0 and 255.  A stream is a <i>sequential</i> communication channel
+in the sense that if the program writes onto its output a byte of
+value 1 followed by a byte of value 2, then the application that reads
+from that stream will first read value 1 and then value 2.
+</p>
+
+<p>
+The byte values per-se have no <i>semantic</i> value, and more generally
+the streams per-se have no structure.  It is up to your program, and
+the applications your program writes to or reads from, to <i>interpret</i>
+individual bytes or sequences of bytes.
+</p>
+
+<p>
+Consider in fact our first example program.  Here is the code
+(slightly modified) once again saved in a file called <code>ciao.c</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdio.h&gt;</span>
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    printf (<span class="face-string">"Ciao!</span><span class="face-escape">\n</span><span class="face-string">"</span>);
+}
+</code></pre>
+</div>
+
+<p>
+If we run the program, we see the following text displayed on the
+terminal window:
+</p>
+
+<pre class="example" id="org2d41dc6">
+$ ./ciao
+Ciao!
+</pre>
+
+<p>
+This is no surprise.  You write <code>"Ciao!\n"</code> in the program, and that
+is what gets printed out onto the terminal window.  As you most likely
+already figured out, that <code>\n</code> is a special code for the end of a
+line, so everything is totally consistent.  But things are not so
+straightforward if you think about it.  We just said that the output
+consists of a sequence of <i>bytes,</i> meaning numbers between 0 and 255.
+How does the program turn <code>"Ciao!\n"</code>, as written in the program, into
+a sequence of bytes.  And how does the terminal application turn that
+sequence of bytes into a message printed on the screen?
+</p>
+</div>
+</div>
+<div id="outline-container-orgd59d153" class="outline-3">
+<h3 id="orgd59d153">Strings, Characters, and Bytes</h3>
+<div class="outline-text-3" id="text-orgd59d153">
+<p>
+The parameter we pass to the <code>printf</code> function is the string
+<code>"Ciao!\n"</code> . A <i>string</i> is essentially a sequence of <i>bytes</i>.  The
+<code>printf</code> function takes those bytes and simply writes them onto the
+standard output stream.  We will see later that <code>printf</code> processes
+that string of bytes as a formatting template.  But in this case there
+is no special formatting and therefore <code>printf</code> simply outputs the
+bytes onto the standard output.  The standard output of the program is
+connected to the input of the terminal application, so those bytes end
+up going to the terminal application that then prints the message.
+</p>
+
+<p>
+In fact, we&rsquo;ll get a bit ahead of ourselves, but let&rsquo;s try the
+following program.  Let&rsquo;s call it ciao2.c:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdio.h&gt;</span>
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    putchar(<span class="face-number">67</span>);
+    putchar(<span class="face-number">105</span>);
+    putchar(<span class="face-number">97</span>);
+    putchar(<span class="face-number">111</span>);
+    putchar(<span class="face-number">33</span>);
+    putchar(<span class="face-number">10</span>);
+}
+</code></pre>
+</div>
+
+<p>
+Compile and run:
+</p>
+
+<pre class="example" id="orgb140b1f">
+$ cc ciao2.c -o ciao2
+$ ./ciao2
+Ciao!
+</pre>
+
+<p>
+Magic.  (Did you try it yourself?!  No?  Well&hellip; DO IT&mdash;NOW!)  This
+second program <code>ciao2</code> outputs exactly the same message as the first
+program <code>ciao</code>.  That&rsquo;s because the output is just a sequence of
+bytes.  Makes sense, right?  Wait, what!?  Where do those numbers come
+from?  And how does the terminal application know that they correspond
+to the message &ldquo;Ciao!&rdquo;?
+</p>
+
+<p>
+Here&rsquo;s a good-enough initial explanation.  The message is written in
+the program as a string of <i>characters,</i> literally the characters <code>C</code>
+<code>i</code> <code>a</code> <code>o</code> <code>!</code> <code>\</code> <code>n</code>.  The most astute reader would object that the
+characters are written by your text editor into the program file as
+bytes.  True.  But the astute reader must also know that it&rsquo;s yet
+another application of the same encoding.  So let&rsquo;s simplify a bit and
+start from the characters that you type and <i>see</i> in your program.
+</p>
+
+<p>
+So, back to the characters <code>C</code> <code>i</code> <code>a</code> <code>o</code> <code>!</code> <code>\</code> <code>n</code>.  The compiler
+&ldquo;encodes&rdquo; that sequence of characters as the sequence of bytes 67,
+105, 97, 111, 33, and 10.  That sequence is stored somewhere in the
+memory of the program, and it is passed to <code>printf</code>, which writes it
+onto the standard output.  That same sequence of bytes is then decoded
+by the terminal application to get the original message.
+</p>
+
+<p>
+Okay, but again, where do those numbers come from?  Simplifying a bit,
+the compiler first maps some special sequences of characters into some
+special byte values, such that <code>\n</code> is encoded as the byte
+value&nbsp;10.  The compiler then also maps the other characters into
+a sequence of bytes.  The algorithm that the compiler uses to perform
+this mapping depends on your system configuration. Most often, it is
+an implementation of the <i>Unicode</i> map followed by the <i>UTF-8</i>
+encoding.  At the other end of the line, the terminal application uses
+the same UTF-8 and Unicode mappings (in reverse) to interpret and
+therefore print the sequence of bytes 67, 105, 97, 111, 33 as the
+sequence of characters &ldquo;Ciao!&rdquo;  (without quotation marks).  The
+terminal application then interprets the last byte value, 10, as the
+end of line.
+</p>
+
+<p>
+All good?  Do you want to know more about Unicode and UTF-8?  That&rsquo;s
+simple, at least conceptually.  Unicode is a map from <i>characters</i> to
+<i>numbers</i> also called <i>code-points</i>, while UTF-8 is a map from those
+numbers into sequences of bytes, which are themselves numbers between
+0 and 255.  By <i>characters</i> here we mean the elementary components of
+human languages when expressed in written form.  For example, the
+letter &ldquo;C&rdquo; (without quotation marks) is a character from the Latin
+script used in languages like English and Italian, and &ldquo;π&rdquo; is also a
+character from the Greek alphabet used in modern and ancient Greek as
+well as in mathematical writing. A smiley &ldquo;🙂&rdquo; is also a character.
+You get the idea.  In summary, Unicode maps a character into a numeric
+code called &ldquo;code point&rdquo; (and vice-versa) and UTF-8 maps that numeric
+code into a sequence of bytes (and vice-versa).  Below is a table of
+these mappings for three example characters:
+</p>
+
+<table border="4" frame="hsides" cellspacing="0" cellpadding="6">
+<caption class="t-above"><span class="table-number">Table 1:</span> Examples of mapping of character to sequences of bytes through Unicode and UTF-8.</caption>
+
+<colgroup>
+<col  class="org-center" />
+
+<col  class="org-right" />
+
+<col  class="org-center" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-center">character</th>
+<th scope="col" class="org-right">code point</th>
+<th scope="col" class="org-center">&ldquo;U+&rdquo; notation</th>
+<th scope="col" class="org-left">bytes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-center">C</td>
+<td class="org-right">67</td>
+<td class="org-center">U+0043</td>
+<td class="org-left">67</td>
+</tr>
+
+<tr>
+<td class="org-center">π</td>
+<td class="org-right">960</td>
+<td class="org-center">U+03C0</td>
+<td class="org-left">207 128</td>
+</tr>
+
+<tr>
+<td class="org-center">🙂</td>
+<td class="org-right">128578</td>
+<td class="org-center">U+1F642</td>
+<td class="org-left">240 159 153 130</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Don&rsquo;t worry if you don&rsquo;t undestand how code point 128578 becomes
+bytes 240, 159, 153, and 130.  That&rsquo;s UTF-8, and we won&rsquo;t go into the
+detail of that.  It&rsquo;s actually interesting.  And you should definitely
+<a href="https://en.wikipedia.org/wiki/UTF-8#Encoding">look it up</a> if you are mildly curious.  But it&rsquo;s not essential for our
+purposes.
+</p>
+
+<p>
+However, there is one aspect of the UTF-8 encoding that is very
+important for us.  Notice that Unicode maps the character &ldquo;C&rdquo; to
+code-point 67, and UTF-8 maps code-point 67 to a single byte value 67.
+This case, where the Unicode code-point is encoded with a single byte
+and that byte has the same numeric value, is a special case that for
+us will be the norm.  It is the case for the alphabet of the English
+language (uppercase and lowercase) plus a bunch of common characters
+such as numbers, punctuation, spaces, etc., including all the
+characters of the most basic set of characters you can find in a C/C++
+program, which is displayed below (plus some space characters):
+</p>
+
+<pre class="example" id="org6809e54">
+abcdefghijklmnopqrstuvwxyz
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+0123456789
+ _{}[]()&lt;&gt;%:;.?*+-/^&amp;|~!=,\"’
+</pre>
+
+<p>
+So, most if not all our examples and exercises deal with characters
+that map to a single byte.  When we only use those characters, dealing
+with strings becomes very simple: the length of a string of characters
+is the same as the length of its encoding in bytes, and you can go to
+the <i>n</i>-th character by going to the <i>n</i>-th byte.
+</p>
+
+<p>
+The special one-byte character encoding of Unicode with UTF-8
+correspond exactly to another encoding you might have heard of, called
+ASCII.  And of course this is no coincidence.  UTF-8 and Unicode were
+in fact designed to be backward compatible with ASCII.
+</p>
+
+<p>
+Okay.  Enough about character encoding.  Now you know at least the
+basics of how your compiler and your terminal application encode
+characters into sequences of bytes and vice-versa.  And as the astute
+reader would have pointed out, the same goes for your text editor and
+many other components of your computer system.
+</p>
+</div>
+</div>
+<div id="outline-container-orgd3239fc" class="outline-3">
+<h3 id="orgd3239fc">Basic Formatting</h3>
+<div class="outline-text-3" id="text-orgd3239fc">
+<p>
+The <code>printf</code> function we used in our very first program can do much
+more than just print a given literal string.  The first argument is in
+fact interpreted as a <i>format</i> string that determines how to print the
+following arguments.  Here&rsquo;s an example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdio.h&gt;</span>
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">n</span> = <span class="face-number">0</span>; n &lt; <span class="face-number">10</span>; ++n)
+        printf(<span class="face-string">"%dPI = %f</span><span class="face-escape">\n</span><span class="face-string">"</span>, n, <span class="face-number">3.14159265</span>*n);
+}
+</code></pre>
+</div>
+
+<p>
+And here&rsquo;s the output:
+</p>
+
+<pre class="example" id="orgebaad7c">
+0PI = 0.000000
+1PI = 3.141593
+2PI = 6.283185
+3PI = 9.424778
+4PI = 12.566371
+5PI = 15.707963
+6PI = 18.849556
+7PI = 21.991149
+8PI = 25.132741
+9PI = 28.274334
+</pre>
+
+<p>
+Very intuitively here, the format string (first argument) is
+interpreted literally, meaning that its content is copied onto the
+output stream, except that a percent character (<code>%</code>) followed by one
+or more formatting characters are interpreted as a place-holder for
+one of the other arguments.  In the example above, the format string
+starts with the characters <code>%d</code>, so at that point <code>printf</code> outputs the
+next argument (<code>n</code>) as an integer in decimal format.  At a later point
+the format string contains the characters <code>%f</code>, so at that point
+<code>printf</code> outputs the following argument (<code>3.14159265*n</code>) as a
+floating-point number.
+</p>
+
+<p>
+The formatting can be controlled in great detail, for example by
+changing the width of each field, the alignment, the number of decimal
+digits, and more.  For example, here is a variant of the example
+above:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdio.h&gt;</span>
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">n</span> = <span class="face-number">0</span>; n &lt; <span class="face-number">15</span>; ++n)
+        printf(<span class="face-string">"%6dPI = %6.3f</span><span class="face-escape">\n</span><span class="face-string">"</span>, n, <span class="face-number">3.14159265</span>*n);
+}
+</code></pre>
+</div>
+
+<p>
+And this is the output.
+</p>
+
+<pre class="example" id="orgc53eaa6">
+ 0PI =  0.000
+ 1PI =  3.142
+ 2PI =  6.283
+ 3PI =  9.425
+ 4PI = 12.566
+ 5PI = 15.708
+ 6PI = 18.850
+ 7PI = 21.991
+ 8PI = 25.133
+ 9PI = 28.274
+10PI = 31.416
+11PI = 34.558
+12PI = 37.699
+13PI = 40.841
+14PI = 43.982
+</pre>
+
+<p>
+Try these examples yourself to experiment with formatted output.  As
+usual, the <a href="https://en.cppreference.com/w/c/io/fprintf">reference documentation</a> is by far your best source to
+figure out all the formatting options.
+</p>
+</div>
+</div>
+<div id="outline-container-org101011c" class="outline-3">
+<h3 id="org101011c">Input/Output One Byte at a Time</h3>
+<div class="outline-text-3" id="text-org101011c">
+<p>
+Sometimes you want to read or write &ldquo;raw&rdquo; bytes.  The most basic way
+to do that is to read or write one byte at a time, which you can do
+with <code>getchar</code> and <code>putchar</code>, respectively.  For example, try this
+program in a file called <code>bytecount.c</code>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdio.h&gt;</span>
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">unsigned int</span> <span class="face-variable-name">count</span> = <span class="face-number">0</span>;
+    <span class="face-keyword">while</span> (getchar() != EOF)
+        ++count;
+    printf(<span class="face-string">"I just read %u bytes.</span><span class="face-escape">\n</span><span class="face-string">"</span>, count);
+}
+</code></pre>
+</div>
+
+<p>
+If you run the program passing its own source file as the standard
+input, you get the following:
+</p>
+
+<pre class="example" id="orgdaf12ea">
+$ ./bytecount &lt; bytecount.c
+I just read 149 bytes.
+</pre>
+
+<p>
+<b>Quiz 1:</b>  What&rsquo;s the output of the shell command <code>echo '🙂🙂🙂' |
+./bytecount</code>?  Feel free to try it yourself.
+</p>
+
+<p>
+<b>Quiz 2:</b>  Why?
+</p>
+
+<p>
+Okay, apart from the complication of character encoding and invisible
+characters, this is all quite straightforward.  However, there is one
+aspect of this program and input/output more generally that often
+leads to confusion.  Let&rsquo;s clarify this aspect right away.  Input
+operations may fail.  Same for output.  Yeah, I know&hellip;  Well, that&rsquo;s
+just a fact of life.  Your program might be just fine, but the devices
+or other programs that produce or consume the streams that your
+program reads from or writes into might fail.  Or your input/output
+streams might have come to an end.  Whatever it might be, the input
+operation must yield a valid input when the operation succeeds, or
+otherwise signal that the operation did not succeed.  And your code
+should deal with those cases appropriately.  The question is, how does
+that work in practice?
+</p>
+
+<p>
+Going back to the example, <code>getchar</code> does everything through its
+return value.  So, <code>getchar()</code> returns a byte&mdash;a number between 0 and
+255&mdash;when the read operation succeeds, or the special value <code>EOF</code>
+when the operation fails either because the input stream ended or
+because of some error condition.
+</p>
+
+<p>
+Just by logic, it follows that <code>EOF</code> is not a valid byte value.  But
+this is where things might get confusing, probably because of the name
+of the <code>EOF</code> symbol.  You might think that <code>EOF</code> is the value of &ldquo;the
+end-of-file character&rdquo; or some other special byte value that
+terminates the input.  But there is no such terminator character or
+byte.  The <code>EOF</code> return value might indicate that the stream has ended
+(or that an error occurred), but it is not in itself a valid byte
+value.  I repeat, <i>there is no end-of-file or end-of-input character
+or byte.</i>
+</p>
+
+<p>
+Here&rsquo;s an example that illustrates the difference between the bytes in
+a stream and the end-of-file or error conditions of the stream.  We
+are getting ahead of ourselves with a number of features of the
+language and the library.  But that&rsquo;s okay.  In fact, it&rsquo;s a learning
+experience.  Use your intuition, Luke!
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdio.h&gt;</span>
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">c</span>;
+    <span class="face-type">unsigned int</span> <span class="face-variable-name">count</span> = <span class="face-number">0</span>;
+    printf(<span class="face-string">" count  getchar  feof  ferror</span><span class="face-escape">\n</span><span class="face-string">"</span>);
+    <span class="face-keyword">do</span> {
+        <span class="face-variable-use">c</span> = getchar();
+        printf(<span class="face-string">"%6u  %7d  %4s  %6s</span><span class="face-escape">\n</span><span class="face-string">"</span>,
+               count, c,
+               (feof(stdin) ? <span class="face-string">"yes"</span> : <span class="face-string">"no"</span>), (ferror(stdin) ? <span class="face-string">"yes"</span> : <span class="face-string">"no"</span>));
+        ++count;
+    } <span class="face-keyword">while</span> (c != EOF);
+}
+</code></pre>
+</div>
+
+<p>
+Save this program as <code>fstatus.c</code> and then compile it as usual.  You
+can now see clearly what happens when the input stream terminates:
+</p>
+
+<pre class="example" id="org0865a94">
+$ echo ciao | ./fstatus
+ count  getchar  feof  ferror
+     0       99    no      no
+     1      105    no      no
+     2       97    no      no
+     3      111    no      no
+     4       10    no      no
+     5       -1   yes      no
+$ ./fstatus &lt; /dev/null
+ count  getchar  feof  ferror
+     0       -1   yes      no
+</pre>
+
+<p>
+What does this program do?  The program reads one byte at a time from
+the standard input using <code>getchar()</code> in a loop.  For each invocation
+of <code>getchar()</code>, the program outputs a counter, the return value of
+<code>getchar()</code>, and then two Boolean values. The first Boolean value is
+the result of <code>feof(stdin)</code> and represents the end-of-file status of
+the standard input stream (<code>stdin</code>). The second Boolean value is the
+error status of the standard input stream returned by <code>ferror(stdin)</code>.
+You can see that, at some point, <code>getchar()</code> returns -1, which in fact
+corresponds to the value of <code>EOF</code>.  The result of <code>feof()</code> then
+confirms that the <code>EOF</code> return value from <code>getchar()</code> indeed signals
+the end of the stream.
+</p>
+
+<p>
+We talked about reading one byte at a time with <code>getchar</code>.  Let&rsquo;s now
+talk about writing one byte at a time with <code>putchar</code>.  In fact, we
+have already seen an example in which we use <code>putchar</code> to output a
+specific sequence of bytes, remember?  Go check it out.  Do it!
+</p>
+
+<p>
+See, <code>putchar</code> takes an integer argument and outputs that argument as
+a byte onto the standard output.  Simple.  For those who are really
+curious about the specifics of programming languages and C in
+particular, it would be a good exercise to figure out what happens if
+the integer argument is outside of the range of valid values for a
+byte (0&ndash;255).  A good starting point is, as usual, the
+<a href="https://en.cppreference.com/w/c/io/putchar">documentation</a>. Other than that, there isn&rsquo;t much more to say about
+<code>putchar</code>.
+</p>
+
+<p>
+To put everything together in a nice exercise, here&rsquo;s a more elaborate
+example.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdio.h&gt;</span>
+<span class="face-preprocessor">#include</span> <span class="face-string">&lt;ctype.h&gt;</span>
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">c</span>;
+    <span class="face-type">unsigned int</span> <span class="face-variable-name">x</span> = <span class="face-number">0</span>;
+    <span class="face-type">int</span> <span class="face-variable-name">reading_number</span> = <span class="face-number">0</span>;
+    <span class="face-keyword">do</span> {
+        <span class="face-variable-use">c</span> = getchar();
+        <span class="face-keyword">if</span> (isdigit(c)) {
+            <span class="face-variable-use">reading_number</span> = <span class="face-number">1</span>;
+            <span class="face-variable-use">x</span> = <span class="face-number">10</span>*x + (c - <span class="face-constant">'0'</span>);
+        } <span class="face-keyword">else</span> {
+            <span class="face-keyword">if</span> (reading_number == <span class="face-number">1</span>) {
+                <span class="face-keyword">for</span> (; x &gt; <span class="face-number">0</span>; --x) {
+                    putchar(<span class="face-constant">'#'</span>);
+                }
+                putchar(<span class="face-constant">'</span><span class="face-escape">\n</span><span class="face-constant">'</span>);
+                <span class="face-variable-use">reading_number</span> = <span class="face-number">0</span>;
+            }
+        }
+    } <span class="face-keyword">while</span> (c != EOF);
+}
+</code></pre>
+</div>
+
+<p>
+What does this program do?  I&rsquo;m not going to tell you.  You should
+figure it out by yourself.  It&rsquo;s a good exercise.  Do it!  Of course,
+one way to figure it out is to run the program and simply play with
+it, so go ahead and do that.  I&rsquo;ll wait for you here.
+</p>
+
+<p>
+One last comment: <code>putchar</code> takes an integer argument but also returns
+an integer value.  As it turns out, the semantics is the same as
+<code>getchar</code>.  The return value is the byte successfully written onto the
+standard output, or <code>EOF</code> if the output operation failed for whatever
+reason.  The code in the examples above does not use the return value
+of <code>putchar</code>, so it simply ignores potential error conditions.  It is
+not that difficult to deal with such errors, as shown in the example
+below.  However, that is something we rarely do in our examples.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdio.h&gt;</span>
+<span class="face-preprocessor">#include</span> <span class="face-string">&lt;ctype.h&gt;</span>
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">c</span>;
+    <span class="face-type">int</span> <span class="face-variable-name">x</span> = <span class="face-number">0</span>;
+    <span class="face-type">int</span> <span class="face-variable-name">reading_number</span> = <span class="face-number">0</span>;
+    <span class="face-keyword">do</span> {
+        <span class="face-variable-use">c</span> = getchar();
+        <span class="face-keyword">if</span> (isdigit(c)) {
+            <span class="face-variable-use">reading_number</span> = <span class="face-number">1</span>;
+            <span class="face-variable-use">x</span> = <span class="face-number">10</span>*x + (c - <span class="face-constant">'0'</span>);
+        } <span class="face-keyword">else</span> {
+            <span class="face-keyword">if</span> (reading_number == <span class="face-number">1</span>) {
+                <span class="face-keyword">for</span> (; x &gt; <span class="face-number">0</span>; --x) {
+                    <span class="face-keyword">if</span> (putchar(<span class="face-constant">'#'</span>) == EOF) {
+                        perror(<span class="face-string">"putchar() failed"</span>);
+                        <span class="face-keyword">return</span> <span class="face-number">1</span>;
+                    }
+                }
+                <span class="face-keyword">if</span> (putchar(<span class="face-constant">'</span><span class="face-escape">\n</span><span class="face-constant">'</span>) == EOF)  {
+                    perror(<span class="face-string">"putchar() failed"</span>);
+                    <span class="face-keyword">return</span> <span class="face-number">1</span>;
+                }
+                <span class="face-variable-use">reading_number</span> = <span class="face-number">0</span>;
+            }
+        }
+    } <span class="face-keyword">while</span> (c != EOF);
+    <span class="face-keyword">return</span> <span class="face-number">0</span>;
+}
+</code></pre>
+</div>
+
+<p>
+You might be a bit confused or even upset here.  Am I telling you to
+check for errors or not?  The answer is, yes, as a systems programmer,
+you should always be aware of possible error conditions, and you
+should deal with those conditions in your code.  However, for our
+purposes, proper error-handling code is often a complication that gets
+in the way of what we want to show with our examples.  We want our
+examples to be concise and to the point.  So, we simplify them as much
+as possible by omitting, among other things, some or even all error
+handling.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org72bfe9e" class="outline-2">
+<h2 id="org72bfe9e">Exercises</h2>
+<div class="outline-text-2" id="text-org72bfe9e">
+<p>
+For the purpose of these exercises, the input will consist of
+characters that are all encoded as individual bytes.  Reading a byte
+at a time gives the codes for the input characters, one at a time.
+</p>
+</div>
+<div id="outline-container-org7535888" class="outline-3">
+<h3 id="org7535888">Word count</h3>
+<div class="outline-text-3" id="text-org7535888">
+<p>
+Write a C program called <code>wordcount</code> that counts the words in the
+standard input. A <i>word</i> is a sequence of one or more characters
+delimited by &ldquo;white space&rdquo; or the end of the stream.  (<i>Hint:</i> there
+is a standard function to check whether a character is &ldquo;white space&rdquo;.)
+The output should be the same as the command: <code>wc -w</code>.
+</p>
+</div>
+</div>
+<div id="outline-container-orgfa69c0a" class="outline-3">
+<h3 id="orgfa69c0a">Diamond</h3>
+<div class="outline-text-3" id="text-orgfa69c0a">
+<p>
+Write a C program called <code>diamond</code> that takes a non-negative number
+\(n\) as a command-line argument, and prints on the standard output an
+\(n\) by \(n\) diamond made of <code>#</code> characters.  For example, this should
+be the output for a 6-by-6 diamond:
+</p>
+
+<pre class="example" id="orgd76ff07">
+     #
+    ###
+   #####
+  #######
+ #########
+###########
+ #########
+  #######
+   #####
+    ###
+     #
+</pre>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

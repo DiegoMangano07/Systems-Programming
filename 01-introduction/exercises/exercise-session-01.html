@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-09-16 Wed 09:57 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Exercise Session n. 1</title>
+<meta name="author" content="Antonio Carzaniga" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+ body { font-family: "Noto Sans", Helvetica, sans-serif;
+	font-size: medium;
+	padding: 2em;
+	margin: auto;
+	max-width: 50em; }
+ .title  { text-align: left;
+	   padding-bottom: 0.5ex;
+	   margin-bottom: 2ex;
+	   border-bottom: 2pt solid #000000; }
+.subtitle { text-align: right; font-size: medium; font-weight: bold; margin-top:0; }
+.todo   { font-family: "Hack", monospace; color: red; }
+.done   { font-family: "Hack", monospace; color: green; }
+.priority { font-family: "Hack", monospace; color: orange; }
+.tag    { background-color: #eeeeee; font-family: "Hack", monospace;
+	  padding: 2px; font-size: 80%; font-weight: normal; }
+.timestamp { color: #bebebe; }
+.timestamp-kwd { color: #5f9ea0; }
+.org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+.org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+.org-center { margin-left: auto; margin-right: auto; text-align: center; }
+.underline { text-decoration: underline; }
+h2 { border-top: 1pt solid #000000;
+     margin-top: 3ex; }
+#postamble p, #preamble p { font-size: 90%; margin: .2em; }
+p.verse { margin-left: 3%; }
+pre {
+    border: 1px solid #cccccc;
+    box-shadow: 3px 3px 3px #eeeeee;
+    padding: 8pt;
+    font-family: "Hack", monospace;
+    overflow: auto;
+    margin: 0;
+    background-color: #e8e8e8;
+}
+pre.src {
+    position: relative;
+    overflow: auto;
+}
+pre.example {
+    position: relative;
+    overflow: auto;
+    border-style: solid;
+    border-top-style: none;
+    border-bottom-style: none;
+    border-left-style: solid;
+    border-right-style: solid;
+    border-width: 6pt;
+    border-color: #d0d0d0;
+}
+code { 
+    font-family: "Hack", monospace;
+    padding-left: 1pt;
+    padding-right: 1pt;
+    background-color: #ebebeb;
+}
+a:link {
+    color: #603000;
+    text-decoration: none;
+    font-weight: bold; 
+}
+a:visited {
+    color: #603010;
+    text-decoration: none;
+    font-weight: bold; 
+}
+table { margin: auto; border-collapse:collapse; }
+thead { background-color: #f0f0f0; font-weight: bold; }
+caption.t-above { caption-side: top; }
+caption.t-bottom { caption-side: bottom; }
+td, th { vertical-align:top; }
+th.org-right  { text-align: center;  }
+th.org-left   { text-align: center;   }
+th.org-center { text-align: center; }
+td.org-right  { text-align: right;  }
+td.org-left   { text-align: left;   }
+td.org-center { text-align: center; }
+dt { font-weight: bold; }
+.footpara { display: inline; }
+.footdef  { margin-bottom: 1em; }
+.figure { padding: 1em; }
+.figure p { text-align: center; }
+.equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+}
+.equation {
+    vertical-align: middle;
+}
+.equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+}
+.inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+}
+#org-div-home-and-up { text-align: right; font-size: 70%; white-space: nowrap; }
+textarea { overflow-x: auto; }
+.linenr { font-size: smaller }
+.code-highlighted { background-color: #ffff00; }
+.org-info-js_info-navigation { border-style: none; }
+#org-info-js_console-label { font-size: 10px; font-weight: bold; white-space: nowrap; }
+.org-info-js_search-highlight { background-color: #ffff00; color: #000000; font-weight: bold; }
+.org-svg { }
+.face-builtin { color: #338033; }
+.face-comment { color: #5C7A99; }
+.face-comment-delimiter { color: #5C7A99; }
+.face-constant { color: #335980; }
+.face-doc { color: #80335A; }
+.face-function-name { color: #3D3380; font-weight: bold; }
+.face-keyword { color: #000000; font-weight: bold; }
+.face-preprocessor { color: #338033; }
+.face-string { color: #648033; font-style: italic; }
+.face-type { color: #803333; }
+.face-variable-name { color: #333380; }
+  /*]]>*/-->
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Exercise Session n. 1
+<br />
+<span class="subtitle">Systems Programming</span>
+</h1>
+<p>
+We practice with simple input/output operations.  The functions we use
+are <a href="https://en.cppreference.com/w/c/io/getchar">getchar</a> for the input, and <a href="https://en.cppreference.com/w/c/io/fprintf">printf</a> and <a href="https://en.cppreference.com/w/c/io/putchar">putchar</a> for the output.
+</p>
+<div id="outline-container-org51a2939" class="outline-2">
+<h2 id="org51a2939">Count Lines</h2>
+<div class="outline-text-2" id="text-org51a2939">
+<p>
+Write a C program called <code>countlines</code> that counts lines in the standard
+input.  A line is any sequence of zero or more characters terminated
+by the <i>newline</i> character <code>'\n'</code>.  The output is the number of lines.
+</p>
+</div>
+<div id="outline-container-org0f2b206" class="outline-3">
+<h3 id="org0f2b206">Minimal testing</h3>
+<div class="outline-text-3" id="text-org0f2b206">
+<p>
+Test your program by writing some input files and then running your
+program with those files as the program&rsquo;s standard input.
+</p>
+
+<p>
+<b>Hacker tip:</b> The output of your program should be the same as that of
+the command <code>wc -l</code>.  Hopefully you have the <a href="https://www.gnu.org/software/coreutils/manual/html_node/wc-invocation.html">wc</a> utility installed and
+available on your system. (If you are a hacker then you must have it.)
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org320ee01" class="outline-2">
+<h2 id="org320ee01">Count Empty Lines</h2>
+<div class="outline-text-2" id="text-org320ee01">
+<p>
+Write a C program called <code>emptylines</code> that counts and then outputs the
+number of empty lines in its standard input.  As in the <i>countlines</i>
+exercise above, a line is defined as a sequence of zero or more
+characters terminated by the <i>newline</i> character <code>'\n'</code>.
+</p>
+</div>
+<div id="outline-container-org54da65b" class="outline-3">
+<h3 id="org54da65b">Minimal testing</h3>
+<div class="outline-text-3" id="text-org54da65b">
+<p>
+Test your program by writing some input files and then running your
+program with those files as the program&rsquo;s standard input.
+</p>
+
+<p>
+<b>Hacker tip:</b> The output of your program should be the same as that of
+the command <code>grep -c -e '^$'</code>.  Hopefully you have the <a href="https://www.gnu.org/software/grep/">grep</a> utility
+installed and available on your system, too.  (Needless to say, &hellip;)
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgce62e38" class="outline-2">
+<h2 id="orgce62e38">Paragraph Enumeration</h2>
+<div class="outline-text-2" id="text-orgce62e38">
+<p>
+Write a C program called <code>enumpar</code> that reads a text from its standard
+input, and copies the text onto its standard output by formatting and
+enumerating each paragraph.  A paragraph is a maximal contiguous
+sequence of one or more non-empty lines.  The program must output each
+paragraph indented by six spaces, with a counter printed at the
+beginning of the first line of each paragraph.  More specifically, the
+text of each line of a paragraph (non-empty, by definition) starts at
+column 6, and the first line of the paragraph also contains the
+paragraph counter printed as a number right-aligned to column 5.
+</p>
+
+<p>
+Paragraph in the input may be separated by one or more lines.
+However, the output paragraphs must be separated by a single empty
+line.  The paragraph counter starts at 1.
+</p>
+</div>
+<div id="outline-container-orgc1b7101" class="outline-3">
+<h3 id="orgc1b7101">Examples</h3>
+<div class="outline-text-3" id="text-orgc1b7101">
+<p>
+With the following input:
+</p>
+
+<pre class="example" id="org5f8fb97">
+Little boxes on the hillside
+Little boxes made of ticky-tacky
+Little boxes on the hillside
+Little boxes all the same
+
+There's a pink one and a green one
+And a blue one and a yellow one
+And they're all made out of ticky-tacky
+And they all look just the same
+
+And the people in the houses
+All went to the university
+Where they were put in boxes
+And they came out all the same
+
+And there's doctors and lawyers
+And business executives
+And they're all made out of ticky-tacky
+And they all look just the same
+</pre>
+
+<p>
+the program must print the following output:
+</p>
+
+<pre class="example" id="org44876bf">
+1 Little boxes on the hillside
+  Little boxes made of ticky-tacky
+  Little boxes on the hillside
+  Little boxes all the same
+
+2 There's a pink one and a green one
+  And a blue one and a yellow one
+  And they're all made out of ticky-tacky
+  And they all look just the same
+
+3 And the people in the houses
+  All went to the university
+  Where they were put in boxes
+  And they came out all the same
+
+4 And there's doctors and lawyers
+  And business executives
+  And they're all made out of ticky-tacky
+  And they all look just the same
+</pre>
+
+<p>
+And with the following input:
+</p>
+
+<pre class="example" id="orgd36c597">
+One,
+two.
+
+
+
+Three, four
+five
+
+
+</pre>
+
+<p>
+the program must print the following output:
+</p>
+
+<pre class="example" id="org0758e47">
+1 One,
+  two.
+
+2 Three, four
+  five
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
