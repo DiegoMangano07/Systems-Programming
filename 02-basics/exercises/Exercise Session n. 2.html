@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-09-23 Wed 14:03 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Exercise Session n. 2</title>
+<meta name="author" content="Antonio Carzaniga" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+ body { font-family: "Noto Sans", Helvetica, sans-serif;
+	font-size: medium;
+	padding: 2em;
+	margin: auto;
+	max-width: 50em; }
+ .title  { text-align: left;
+	   padding-bottom: 0.5ex;
+	   margin-bottom: 2ex;
+	   border-bottom: 2pt solid #000000; }
+.subtitle { text-align: right; font-size: medium; font-weight: bold; margin-top:0; }
+.todo   { font-family: "Hack", monospace; color: red; }
+.done   { font-family: "Hack", monospace; color: green; }
+.priority { font-family: "Hack", monospace; color: orange; }
+.tag    { background-color: #eeeeee; font-family: "Hack", monospace;
+	  padding: 2px; font-size: 80%; font-weight: normal; }
+.timestamp { color: #bebebe; }
+.timestamp-kwd { color: #5f9ea0; }
+.org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+.org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+.org-center { margin-left: auto; margin-right: auto; text-align: center; }
+.underline { text-decoration: underline; }
+h2 { border-top: 1pt solid #000000;
+     margin-top: 3ex; }
+#postamble p, #preamble p { font-size: 90%; margin: .2em; }
+p.verse { margin-left: 3%; }
+pre {
+    border: 1px solid #cccccc;
+    box-shadow: 3px 3px 3px #eeeeee;
+    padding: 8pt;
+    font-family: "Hack", monospace;
+    overflow: auto;
+    margin: 0;
+    background-color: #e8e8e8;
+}
+pre.src {
+    position: relative;
+    overflow: auto;
+}
+pre.example {
+    position: relative;
+    overflow: auto;
+    border-style: solid;
+    border-top-style: none;
+    border-bottom-style: none;
+    border-left-style: solid;
+    border-right-style: solid;
+    border-width: 6pt;
+    border-color: #d0d0d0;
+}
+code { 
+    font-family: "Hack", monospace;
+    padding-left: 1pt;
+    padding-right: 1pt;
+    background-color: #ebebeb;
+}
+a:link {
+    color: #603000;
+    text-decoration: none;
+    font-weight: bold; 
+}
+a:visited {
+    color: #603010;
+    text-decoration: none;
+    font-weight: bold; 
+}
+table { margin: auto; border-collapse:collapse; }
+thead { background-color: #f0f0f0; font-weight: bold; }
+caption.t-above { caption-side: top; }
+caption.t-bottom { caption-side: bottom; }
+td, th { vertical-align:top; }
+th.org-right  { text-align: center;  }
+th.org-left   { text-align: center;   }
+th.org-center { text-align: center; }
+td.org-right  { text-align: right;  }
+td.org-left   { text-align: left;   }
+td.org-center { text-align: center; }
+dt { font-weight: bold; }
+.footpara { display: inline; }
+.footdef  { margin-bottom: 1em; }
+.figure { padding: 1em; }
+.figure p { text-align: center; }
+.equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+}
+.equation {
+    vertical-align: middle;
+}
+.equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+}
+.inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+}
+#org-div-home-and-up { text-align: right; font-size: 70%; white-space: nowrap; }
+textarea { overflow-x: auto; }
+.linenr { font-size: smaller }
+.code-highlighted { background-color: #ffff00; }
+.org-info-js_info-navigation { border-style: none; }
+#org-info-js_console-label { font-size: 10px; font-weight: bold; white-space: nowrap; }
+.org-info-js_search-highlight { background-color: #ffff00; color: #000000; font-weight: bold; }
+.org-svg { }
+.face-builtin { color: #338033; }
+.face-comment { color: #5C7A99; }
+.face-comment-delimiter { color: #5C7A99; }
+.face-constant { color: #335980; }
+.face-doc { color: #80335A; }
+.face-function-name { color: #3D3380; font-weight: bold; }
+.face-keyword { color: #000000; font-weight: bold; }
+.face-preprocessor { color: #338033; }
+.face-string { color: #648033; font-style: italic; }
+.face-type { color: #803333; }
+.face-variable-name { color: #333380; }
+  /*]]>*/-->
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Exercise Session n. 2
+<br />
+<span class="subtitle">Systems Programming</span>
+</h1>
+<p>
+We practice again with simple input/output operations, one byte at a
+time from standard input and to standard output.  Thus we only use
+<a href="https://en.cppreference.com/w/c/io/getchar">getchar</a> and <a href="https://en.cppreference.com/w/c/io/putchar">putchar</a> for input and output.
+</p>
+<div id="outline-container-org233adeb" class="outline-2">
+<h2 id="org233adeb">Compress Spaces</h2>
+<div class="outline-text-2" id="text-org233adeb">
+<p>
+Write a C program called <code>compress_spaces</code> that reads text from
+standard input, and outputs the same text formatted as follows:
+</p>
+
+<ul class="org-ul">
+<li>There are no horizontal spaces at the beginning of a line.</li>
+
+<li>There are no horizontal spaces at the end of a line, before the
+end-of-line byte.</li>
+
+<li>Every sequence of two or more horizontal space characters between
+non-space characters is printed as a single space character (<code>' '</code>).</li>
+</ul>
+
+<p>
+An horizontal space character is either a space character (<code>' '</code>) or a
+tabulation character (<code>'\t'</code>).
+</p>
+
+<p>
+For example, with the following input:
+</p>
+
+<pre class="example" id="orgce11718">
+      THE TITLE IS:  SYSTEMS PROGRAMMING
+
+
+one   two  three  
+   four five six
+
+
+END.        
+
+</pre>
+
+<p>
+The program must produce the following output.
+</p>
+
+<pre class="example" id="org7990fab">
+THE TITLE IS: SYSTEMS PROGRAMMING
+
+
+one two three
+four five six
+
+
+END.
+
+</pre>
+</div>
+<div id="outline-container-org6221155" class="outline-3">
+<h3 id="org6221155">Minimal testing</h3>
+<div class="outline-text-3" id="text-org6221155">
+<p>
+Test your program by writing some input files and then running your
+program with those files as the program&rsquo;s standard input.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb789f7d" class="outline-2">
+<h2 id="orgb789f7d">Reading and Writing Numbers</h2>
+<div class="outline-text-2" id="text-orgb789f7d">
+<p>
+Write a C program called <code>mimimum</code> that reads a sequence of
+non-negative numbers and outputs the smallest one.  If the input does
+not contain numbers, then the program must not output anything.
+Numbers are contiguous sequences of decimal digits, meaning characters
+<code>'0'</code>, <code>'1'</code>, &hellip;, <code>'9'</code> separated by any one or more other character.
+Your program may not use any external function other than the
+<code>getchar()</code> and <code>putchar()</code> library function.
+</p>
+
+<p>
+For example, with the following input:
+</p>
+
+<pre class="example" id="org6f24342">
+xxx123x121x111x124x
+</pre>
+
+<p>
+The program must produce the following output.
+</p>
+
+<pre class="example" id="org156ff89">
+111
+</pre>
+
+<p>
+Notice that the decimal digit characters have consecutive numeric
+codes.  The specific codes don&rsquo;t matter.  What matters is that the
+numeric code for <code>'1'</code> is 1 plus the numeric code for <code>'0'</code>, <code>'2'</code> is
+1 plus <code>'1'</code>, and so on.
+</p>
+</div>
+<div id="outline-container-org487f602" class="outline-3">
+<h3 id="org487f602">Minimal testing</h3>
+<div class="outline-text-3" id="text-org487f602">
+<p>
+Test your program by writing some input files and then running your
+program with those files as the program&rsquo;s standard input.
+</p>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

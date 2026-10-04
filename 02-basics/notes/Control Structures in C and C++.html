@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-09-22 Tue 19:26 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Control Structures in C and C++</title>
+<meta name="author" content="Antonio Carzaniga" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+ body { font-family: "Noto Sans", Helvetica, sans-serif;
+	font-size: medium;
+	padding: 2em;
+	margin: auto;
+	max-width: 50em; }
+ .title  { text-align: left;
+	   padding-bottom: 0.5ex;
+	   margin-bottom: 2ex;
+	   border-bottom: 2pt solid #000000; }
+.subtitle { text-align: right; font-size: medium; font-weight: bold; margin-top:0; }
+.todo   { font-family: "Hack", monospace; color: red; }
+.done   { font-family: "Hack", monospace; color: green; }
+.priority { font-family: "Hack", monospace; color: orange; }
+.tag    { background-color: #eeeeee; font-family: "Hack", monospace;
+	  padding: 2px; font-size: 80%; font-weight: normal; }
+.timestamp { color: #bebebe; }
+.timestamp-kwd { color: #5f9ea0; }
+.org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+.org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+.org-center { margin-left: auto; margin-right: auto; text-align: center; }
+.underline { text-decoration: underline; }
+h2 { border-top: 1pt solid #000000;
+     margin-top: 3ex; }
+#postamble p, #preamble p { font-size: 90%; margin: .2em; }
+p.verse { margin-left: 3%; }
+pre {
+    border: 1px solid #cccccc;
+    box-shadow: 3px 3px 3px #eeeeee;
+    padding: 8pt;
+    font-family: "Hack", monospace;
+    overflow: auto;
+    margin: 0;
+    background-color: #e8e8e8;
+}
+pre.src {
+    position: relative;
+    overflow: auto;
+}
+pre.example {
+    position: relative;
+    overflow: auto;
+    border-style: solid;
+    border-top-style: none;
+    border-bottom-style: none;
+    border-left-style: solid;
+    border-right-style: solid;
+    border-width: 6pt;
+    border-color: #d0d0d0;
+}
+code { 
+    font-family: "Hack", monospace;
+    padding-left: 1pt;
+    padding-right: 1pt;
+    background-color: #ebebeb;
+}
+a:link {
+    color: #603000;
+    text-decoration: none;
+    font-weight: bold; 
+}
+a:visited {
+    color: #603010;
+    text-decoration: none;
+    font-weight: bold; 
+}
+table { margin: auto; border-collapse:collapse; }
+thead { background-color: #f0f0f0; font-weight: bold; }
+caption.t-above { caption-side: top; }
+caption.t-bottom { caption-side: bottom; }
+td, th { vertical-align:top; }
+th.org-right  { text-align: center;  }
+th.org-left   { text-align: center;   }
+th.org-center { text-align: center; }
+td.org-right  { text-align: right;  }
+td.org-left   { text-align: left;   }
+td.org-center { text-align: center; }
+dt { font-weight: bold; }
+.footpara { display: inline; }
+.footdef  { margin-bottom: 1em; }
+.figure { padding: 1em; }
+.figure p { text-align: center; }
+.equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+}
+.equation {
+    vertical-align: middle;
+}
+.equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+}
+.inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+}
+#org-div-home-and-up { text-align: right; font-size: 70%; white-space: nowrap; }
+textarea { overflow-x: auto; }
+.linenr { font-size: smaller }
+.code-highlighted { background-color: #ffff00; }
+.org-info-js_info-navigation { border-style: none; }
+#org-info-js_console-label { font-size: 10px; font-weight: bold; white-space: nowrap; }
+.org-info-js_search-highlight { background-color: #ffff00; color: #000000; font-weight: bold; }
+.org-svg { }
+.face-builtin { color: #338033; }
+.face-comment { color: #5C7A99; }
+.face-comment-delimiter { color: #5C7A99; }
+.face-constant { color: #335980; }
+.face-doc { color: #80335A; }
+.face-function-name { color: #3D3380; font-weight: bold; }
+.face-keyword { color: #000000; font-weight: bold; }
+.face-preprocessor { color: #338033; }
+.face-string { color: #648033; font-style: italic; }
+.face-type { color: #803333; }
+.face-variable-name { color: #333380; }
+  /*]]>*/-->
+</style>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Control Structures in C and C++</h1>
+<p>
+We quickly review the control structures of the C language.  What we
+see here for C is essentially identical in C++, although C++ has other
+structures that don&rsquo;t exist in C (e.g., <code>try</code> blocks and range-based
+<code>for</code> loops).  The primary control structures of C are also found in
+other languages, such as Java, so perhaps these are things that you
+are already familiar with.  Still, I recommend that you go through
+this review and practice with all the exercises.
+</p>
+<div id="outline-container-orgd3047b2" class="outline-2">
+<h2 id="orgd3047b2">Declarations, Definitions and Statements</h2>
+<div class="outline-text-2" id="text-orgd3047b2">
+<p>
+A C program is made up primarily of a series of declarations,
+definitions, and statements.  Declarations introduce new identifiers
+(names) for types, variables, and functions.  For example, below is a
+declaration of two variables of type <code>int</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-variable-name">a</span>, <span class="face-variable-name">b</span> = <span class="face-number">0</span>;
+</code></pre>
+</div>
+
+<p>
+In this case, the declaration also <i>defines</i> the two variables, and it
+also initializes one of them.  A declaration that also defines the
+identifier is also called a <i>definition.</i> So again, the line above
+contains a declaration <i>and</i> definition of the two variables <code>a</code> and
+<code>b</code>.  Notice that a definition is also a declaration, but not
+vice-versa.  You might wonder what would be a declaration that is not
+also a definition.  We discuss all of this in detail later, but here
+is a quick preview:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-keyword">extern</span> <span class="face-type">int</span> <span class="face-variable-name">counter</span>;
+<span class="face-type">float</span> <span class="face-function-name">sqrt</span>(<span class="face-type">float</span> <span class="face-variable-name">x</span>);
+<span class="face-keyword">struct</span> <span class="face-type">linked_list</span>;
+</code></pre>
+</div>
+
+<p>
+The first is a declaration of an integer variable called <code>counter</code>.
+The second one is a declaration of a function called <code>sqrt</code> that takes
+a <code>float</code> argument and returns a <code>float</code> result.  The third one is a
+declaration of a <code>struct</code> type.  None of these declarations defines
+the corresponding variable, function, or type.  If you want to declare
+and at the same time define a function, you can do that as you would expect:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-function-name">sum</span> (<span class="face-type">int</span> <span class="face-variable-name">a</span>, <span class="face-type">int</span> <span class="face-variable-name">b</span>) {
+    <span class="face-keyword">return</span> a + b;
+}
+</code></pre>
+</div>
+
+<p>
+So much for declarations and definitions.  As I said, we will come
+back to them at some point.  Our focus here is on <i>statements.</i> Those
+are the chunks of code that actually tell the program to do something.
+There are various types of statements in C: expressions, compound
+statements, selection statements, iteration statements, and jump
+statements.  Let&rsquo;s see them one by one.
+</p>
+</div>
+</div>
+<div id="outline-container-org45330a6" class="outline-2">
+<h2 id="org45330a6">Expression Statements</h2>
+<div class="outline-text-2" id="text-org45330a6">
+<p>
+Expressions define computational actions, meaning that they typically
+compute values and may have side effects.  Syntactically, an
+expression <i>statement</i> is an expression followed by a semicolon:
+</p>
+
+<p>
+<b>Syntax:</b>  <i>expression</i> <code>;</code>
+</p>
+
+<p>
+For example, each one of the following lines is an expression
+statement.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-variable-use">b</span> = <span class="face-number">2</span>;
+<span class="face-variable-use">a</span> = <span class="face-number">7</span> + b*<span class="face-number">3</span>;
+printf(<span class="face-string">"%d</span><span class="face-escape">\n</span><span class="face-string">"</span>, a);
+</code></pre>
+</div>
+
+<p>
+Expressions are built from basic operators, such as the arithmetic
+operators of addition and subtraction (<code>+</code> and <code>-</code>) and many others.
+The operands can be literal values such as <code>7</code> or <code>"%d\n"</code>, variables
+such as <code>a</code> or <code>b</code>, and other subexpressions, such as <code>7 + b*3</code>, which
+is itself an expression containing <code>b*3</code> as a subexpression.  An
+assignment is also an expression, and so is a function call.  In fact,
+both can be seen as the application of an operator.  The assignment
+operator (<code>=</code>) has two operands, the right-hand side operand is an
+expression that gives you the value you want to assign, and the
+left-hand side operand is an expression that identifies the object
+where you want to store the value.  A function call can also be seen
+as the application of an operator, the function-call operator, to a
+subexpression that identifies the function, and another subexpression
+that defines the list of arguments for the call.  Okay, let&rsquo;s not go
+into so much detail here.  There is a lot to say about expressions,
+but we will do that later in a dedicated chapter.
+</p>
+
+<p>
+One more detail about expression <i>statements</i>: the expression can be
+empty, so it is possible to have a &ldquo;null&rdquo; statement.  What would be
+the point of that?  Here&rsquo;s an example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">unsigned int</span> <span class="face-function-name">length</span> (<span class="face-keyword">const</span> <span class="face-type">char</span> <span class="face-variable-name">s</span> []) {
+    <span class="face-type">unsigned int</span> <span class="face-variable-name">l</span>;
+    <span class="face-keyword">for</span> (<span class="face-variable-use">l</span> = <span class="face-number">0</span>; s[l] != <span class="face-number">0</span>; ++l);
+    <span class="face-keyword">return</span> l;
+}
+</code></pre>
+</div>
+
+<p>
+I know we&rsquo;re getting ahead of ourselves, but where is the empty
+statement here?
+</p>
+</div>
+</div>
+<div id="outline-container-orgdd30281" class="outline-2">
+<h2 id="orgdd30281">Compound Statement</h2>
+<div class="outline-text-2" id="text-orgdd30281">
+<p>
+A <i>compound statement</i> is a series of declarations and statements
+grouped together to form a logical unit of computation.  The
+statements within a compound statement are structured in sequence,
+meaning that their order in the program determines their order of
+execution.  Syntactically, a compound statement is a series of
+declarations and statements enclosed in curly braces.
+</p>
+
+<p>
+<b>Syntax:</b> <code>{</code> <i>declaration</i> | <i>statement</i> &hellip; <code>}</code>
+</p>
+
+<p>
+The &ldquo;body&rdquo; of a function in a function definition is a compound
+statement.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-function-name">main</span> () { <span class="face-comment">/* &lt;---------------------compound statement--\ */</span>
+    <span class="face-type">int</span> <span class="face-variable-name">a</span>;                    <span class="face-comment">/* declarations/definitions  | */</span>
+    <span class="face-type">int</span> <span class="face-variable-name">b</span>;                    <span class="face-comment">/*                      ...  | */</span>
+    <span class="face-type">int</span> <span class="face-variable-name">s</span>;                    <span class="face-comment">/*                           | */</span>
+    scanf(<span class="face-string">"%d"</span>, &amp;a);          <span class="face-comment">/*    expression statements  | */</span>
+    scanf(<span class="face-string">"%d"</span>, &amp;b);          <span class="face-comment">/*                      ...  | */</span>
+    <span class="face-variable-use">s</span> = a + b;                                  <span class="face-comment">/*         | */</span>
+    printf(<span class="face-string">"%d + %d = $d</span><span class="face-escape">\n</span><span class="face-string">"</span>, a, b, c);          <span class="face-comment">/*         | */</span>
+} <span class="face-comment">/* &lt;-----------------------------------------------------/ */</span>
+</code></pre>
+</div>
+
+<p>
+Compound statements are also typically parts of other statements.  For
+example, the body of a loop is a statement that is often a compound
+statement.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">void</span> <span class="face-function-name">insertion_sort</span> (<span class="face-type">int</span> <span class="face-variable-name">A</span> [], <span class="face-type">int</span> <span class="face-variable-name">length</span>) {
+    <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">i</span> = <span class="face-number">1</span>; i &lt; length; ++i) { <span class="face-comment">/* &lt;--------compound statement--\ */</span>
+        <span class="face-type">int</span> <span class="face-variable-name">j</span> = i - <span class="face-number">1</span>;                 <span class="face-comment">/*                              | */</span>
+        <span class="face-keyword">while</span> (j &gt; <span class="face-number">0</span> &amp;&amp; A[j - <span class="face-number">1</span>] &gt; A[j]) { <span class="face-comment">/* &lt;--compound statement--\ | */</span>
+            <span class="face-type">int</span> <span class="face-variable-name">tmp</span> = A[j];                <span class="face-comment">/*                        | | */</span>
+            <span class="face-variable-use">A</span>[<span class="face-variable-use">j</span>] = A[j - <span class="face-number">1</span>];               <span class="face-comment">/*                        | | */</span>
+            <span class="face-variable-use">A</span>[j - <span class="face-number">1</span>] = tmp;                <span class="face-comment">/*                        | | */</span>
+            --j;                           <span class="face-comment">/*                        | | */</span>
+        } <span class="face-comment">/* &lt;-------------------------------------------------------/ | */</span>
+    } <span class="face-comment">/* &lt;-------------------------------------------------------------/ */</span>
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org165789b" class="outline-2">
+<h2 id="org165789b">Selection Statements</h2>
+<div class="outline-text-2" id="text-org165789b">
+<p>
+It is essential for programs to be able to execute something in some
+cases, and something else in other cases.  That is what selection
+statements are for.  For example, you could write a function to
+output your score in a game:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">void</span> <span class="face-function-name">print_score</span> (<span class="face-type">int</span> <span class="face-variable-name">s</span>) {
+    <span class="face-keyword">if</span> (s &lt; <span class="face-number">0</span>) {
+        printf(<span class="face-string">"Something is wrong: your score is negative!</span><span class="face-escape">\n</span><span class="face-string">"</span>);
+    } <span class="face-keyword">else</span> {
+        printf(<span class="face-string">"You have %d point"</span>, s);
+        <span class="face-keyword">if</span> (s != <span class="face-number">1</span>)
+            printf(<span class="face-string">"s"</span>);
+        printf(<span class="face-string">"</span><span class="face-escape">\n</span><span class="face-string">"</span>);
+    }   
+}
+</code></pre>
+</div>
+
+<p>
+Or you could write the following little program to test the Collatz
+conjecture one step at a time:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">n</span>;
+    scanf(<span class="face-string">"%d"</span>, &amp;n);    <span class="face-comment">/* read a number from standard input  */</span>
+    <span class="face-keyword">if</span> (n % <span class="face-number">2</span> == <span class="face-number">1</span>)
+        <span class="face-variable-use">n</span> = <span class="face-number">3</span>*n + <span class="face-number">1</span>;
+    <span class="face-variable-use">n</span> = n / <span class="face-number">2</span>;
+    printf(<span class="face-string">"%d</span><span class="face-escape">\n</span><span class="face-string">"</span>, n);
+}
+</code></pre>
+</div>
+
+<p>
+Did you try this program?  Try it now!  And now that you&rsquo;ve also seen
+how to read a number from the standard input with <code>scanf("%d", &amp;n)</code>,
+you should also write a program to test the <code>print_score</code> function of
+the previous example.  Do it <i>now!</i>
+</p>
+
+<p>
+All of this is intuitive, but let&rsquo;s review the syntax and semantics of
+<i>if</i>-statements.  Let&rsquo;s first look at the Collatz example.  The
+program contains a simple <i>if</i>-statement that executes the expression
+statement <code>n = 3*n + 1</code> when \(n\) is an odd number, or more
+specifically when the remainder of the integer division of \(n\) by 2
+is 1.  The syntax of that if-statement is as follows:
+</p>
+
+<p>
+<b>Syntax:</b> <code>if</code> <code>(</code> <i>expression</i> <code>)</code> <i>statement</i>
+</p>
+</div>
+<div id="outline-container-org838440f" class="outline-3">
+<h3 id="org838440f">Condition Expressions</h3>
+<div class="outline-text-3" id="text-org838440f">
+<p>
+The expression in parens in the <code>if</code> statement is interpreted as a
+logical condition, also known as Boolean value, meaning that it can be
+<i>true</i> or <i>false</i>. The statement that follows is then executed when
+the condition expression is <i>true.</i> We say that the expression is
+<i>interpreted</i> as a Boolean value because in fact the expression does
+not have to yield a Boolean value.  In fact, until relatively
+recently, the C language did not even have a proper Boolean type. (C++
+does have a proper Boolean type, called <code>bool</code> with literal values
+<code>true</code> and <code>false</code>, and recent versions of C also support something
+similar.)  Instead, the conditional expression can be of any scalar
+type, such as <code>int</code> or <code>float</code>, and its value is considered to be
+<i>true</i> if it compares <i>not equal to 0,</i> or <i>false</i> otherwise.  In
+fact, we could rewrite the <code>if</code> statement in the above program as
+follows:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-keyword">if</span> (n % <span class="face-number">2</span>)
+        <span class="face-variable-use">n</span> = <span class="face-number">3</span>*n + <span class="face-number">1</span>;
+</code></pre>
+</div>
+
+<p>
+We could but we shouldn&rsquo;t.  <code>(n % 2 == 1)</code> is preferable, since it
+expresses pretty clearly our intentions, whereas <code>(n % 2)</code> is a bit
+cryptic for no good reason.
+</p>
+</div>
+</div>
+<div id="outline-container-org84f7b13" class="outline-3">
+<h3 id="org84f7b13">Full <i>If</i> Statement</h3>
+<div class="outline-text-3" id="text-org84f7b13">
+<p>
+An <i>if</i> statement can also include an <i>else</i> part. We have already
+seen an example in the <code>print_score</code> function above.  Again, this is
+intuitive and should be well known, but let&rsquo;s review anyway.  The
+syntax is as follows:
+</p>
+
+<p>
+<b>Syntax:</b> <code>if</code> <code>(</code> <i>expression</i> <code>)</code> <i>statement</i> <code>else</code> <i>statement</i>
+</p>
+
+<p>
+The program evaluates the expression in parens, and then executes the
+first statement right after the expression if the result of the
+condition expression compares <i>not equal to 0,</i> or otherwise executes
+the second statement right after <code>else</code> if the condition expression
+compares <i>equal to 0.</i>
+</p>
+
+<p>
+As an exercise, consider the variant of the Collatz example listed
+below:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">n</span>;
+    scanf(<span class="face-string">"%d"</span>, &amp;n);
+    <span class="face-keyword">do</span> {
+        <span class="face-keyword">if</span> (n % <span class="face-number">2</span> == <span class="face-number">1</span>) 
+            <span class="face-variable-use">n</span> = <span class="face-number">3</span>*n + <span class="face-number">1</span>;
+        <span class="face-keyword">else</span>
+            <span class="face-variable-use">n</span> = n / <span class="face-number">2</span>;
+        printf(<span class="face-string">"%d</span><span class="face-escape">\n</span><span class="face-string">"</span>, n);
+    } <span class="face-keyword">while</span> (n != <span class="face-number">1</span>);
+}
+</code></pre>
+</div>
+
+<p>
+Notice that here the <code>n = n / 2</code> statement is executed only when <code>n</code>
+is even.  Do you see the difference with the other variant of that
+computation?  Here&rsquo;s the analogous code for comparison:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">n</span>;
+    scanf(<span class="face-string">"%d"</span>, &amp;n);
+    <span class="face-keyword">do</span> {
+        <span class="face-keyword">if</span> (n % <span class="face-number">2</span> == <span class="face-number">1</span>) 
+            <span class="face-variable-use">n</span> = <span class="face-number">3</span>*n + <span class="face-number">1</span>;
+        <span class="face-variable-use">n</span> = n / <span class="face-number">2</span>;
+        printf(<span class="face-string">"%d</span><span class="face-escape">\n</span><span class="face-string">"</span>, n);
+    } <span class="face-keyword">while</span> (n != <span class="face-number">1</span>);
+}
+</code></pre>
+</div>
+</div>
+<div id="outline-container-org7f88a44" class="outline-4">
+<h4 id="org7f88a44">Exercise</h4>
+<div class="outline-text-4" id="text-org7f88a44">
+<p>
+Figure out the output of the two programs for an input value of 7.  Do
+that first without executing the program, and then execute the programs
+to check your answers.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orga674e5f" class="outline-3">
+<h3 id="orga674e5f"><i>Switch</i> Statement</h3>
+<div class="outline-text-3" id="text-orga674e5f">
+<p>
+Sometimes you have more than two alternative behaviors to select from.
+Here&rsquo;s an example in which we rewrite the <code>print_score</code> function to
+also classify a score in various categories:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">void</span> <span class="face-function-name">print_score</span> (<span class="face-type">int</span> <span class="face-variable-name">p</span>) {
+    <span class="face-keyword">if</span> (p &lt; <span class="face-number">0</span>) {
+        printf(<span class="face-string">"Something is wrong: your score is negative!</span><span class="face-escape">\n</span><span class="face-string">"</span>);
+        <span class="face-keyword">return</span>;
+    }
+    printf(<span class="face-string">"You have %d point"</span>, p);
+    <span class="face-keyword">if</span> (p != <span class="face-number">1</span>)
+        printf(<span class="face-string">"s"</span>);
+    printf(<span class="face-string">"</span><span class="face-escape">\n</span><span class="face-string">That is "</span>);
+    <span class="face-keyword">switch</span> (p) {
+    <span class="face-keyword">case</span> <span class="face-number">0</span>:
+    <span class="face-keyword">case</span> <span class="face-number">1</span>:
+        printf(<span class="face-string">"a bit low"</span>);
+        <span class="face-keyword">break</span>;
+    <span class="face-keyword">case</span> <span class="face-number">2</span>:
+        printf(<span class="face-string">"okay"</span>);
+        <span class="face-keyword">break</span>;
+    <span class="face-keyword">case</span> <span class="face-number">4</span>:
+        printf(<span class="face-string">"very "</span>);
+    <span class="face-keyword">case</span> <span class="face-number">3</span>:
+        printf(<span class="face-string">"good"</span>);
+        <span class="face-keyword">break</span>;
+    <span class="face-keyword">case</span> <span class="face-number">5</span>:
+        printf(<span class="face-string">"excellent!"</span>);
+        <span class="face-keyword">break</span>;
+    <span class="face-keyword">default</span>:
+        printf(<span class="face-string">"unbelievable!"</span>);
+        <span class="face-keyword">break</span>;
+    }
+    printf(<span class="face-string">"</span><span class="face-escape">\n</span><span class="face-string">"</span>);
+}
+</code></pre>
+</div>
+
+<p>
+A <i>switch</i> statement allows you to jump to one of many points in a
+compound statement based on the value of a given expression.  The
+syntax is as follows:
+</p>
+
+<p>
+<b>Syntax:</b> <code>switch</code> <code>(</code> <i>expression</i> <code>)</code> <i>statement</i>
+</p>
+
+<p>
+The expression in parens after the <code>switch</code> keyword must be of an
+integer type.  In the example, the expression is defined by the
+variable <code>p</code>, which is of type <code>int</code>, so that works.  The statement
+that follows is typically a compound statement in which some
+statements may be <i>labeled,</i> as follows:
+</p>
+
+<p>
+<code>case</code> <i>constant-expression</i> <code>:</code> <i>statement</i> <i>(opt)</i>
+</p>
+
+<p>
+or
+</p>
+
+<p>
+<code>default</code> <code>:</code> <i>statement</i>
+</p>
+
+<p>
+A <i>constant-expression</i> in a <code>case</code> label is typically a literal value
+(an integer constant or a character constant) or in any case an
+expression that is evaluated by the compiler, not by the program at
+run-time.  In our example above, we use numeric constants.  The switch
+statement may contain at most one <code>default</code> label.
+</p>
+
+<p>
+The execution of the <i>switch</i> statement starts with the evaluation of
+the expression in parens, and then jumps to the label corresponding to
+the value of that expression, or to the <code>default</code> label if there is no
+corresponding label and if there is a <code>default</code> label.  The execution
+then continues sequentially through the compound statement.  A <code>break</code>
+statement terminates the execution of the <code>switch</code> statement.
+</p>
+
+<p>
+<b>Quiz 1:</b>  What&rsquo;s the output of <code>print_score(0)</code>?
+</p>
+
+<p>
+<b>Quiz 2:</b>  What&rsquo;s the output of <code>print_score(3)</code>?
+</p>
+
+<p>
+<b>Quiz 3:</b>  What&rsquo;s the output of <code>print_score(4)</code>?
+</p>
+
+<p>
+<b>Quiz 4:</b>  What&rsquo;s the output of <code>print_score(7)</code>?
+</p>
+
+<p>
+<b>Quiz 5:</b> What if there is no <code>default</code> label?  What&rsquo;s the output of
+<code>print_score(7)</code> then?  I didn&rsquo;t tell you, so this is just to test
+your intuition and prior knowledge.
+</p>
+
+<p>
+<b>Quiz for the wiz:</b> The paragraph above states that a <code>break</code>
+statement terminates the execution of the switch statement.  Is that
+<i>always</i> true?  If not, write and test a counter-example.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgfe5ebb5" class="outline-2">
+<h2 id="orgfe5ebb5">Iteration Statements</h2>
+<div class="outline-text-2" id="text-orgfe5ebb5">
+<p>
+You must be able to tell a computer to do something <i>repeatedly.</i>  You
+can do that with iteration statements.  There are three flavors of
+iterations: <i>while</i>-loops, <i>do-while</i>-loops, and <i>for</i>-loops.  At a
+high-level, they are pretty much the same: the program executes some
+code repeatedly as long as a certain condition is <i>true.</i> 
+</p>
+</div>
+<div id="outline-container-org583e1f4" class="outline-3">
+<h3 id="org583e1f4"><i>While</i> Loops</h3>
+<div class="outline-text-3" id="text-org583e1f4">
+<p>
+In this most basic form of iteration, you have a condition and a
+statement:
+</p>
+
+<p>
+<b>Syntax:</b> <code>while</code> <code>(</code> <i>condition-expression</i> <code>)</code> <i>statement</i>
+</p>
+
+<p>
+The <code>while</code> statement repeatedly evaluates the condition expression
+and executes the statement or &ldquo;body&rdquo; of the loop if the condition is
+<i>true.</i> The condition expression is evaluated <i>before</i> the execution
+of the statement, so if the condition is <i>false</i> at the beginning, the
+<i>while</i> statement terminates immediately.  For example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">n</span>;
+    scanf(<span class="face-string">"%d"</span>, &amp;n);
+    <span class="face-keyword">while</span> (n &gt; <span class="face-number">0</span>) {
+        printf (<span class="face-string">"%d</span><span class="face-escape">\n</span><span class="face-string">"</span>, n);
+        --n;
+    }
+}
+</code></pre>
+</div>
+
+<p>
+<b>Quiz 1:</b>  What happens when you input 0?
+</p>
+
+<p>
+<b>Quiz 2:</b>  What happens when you input 10?
+</p>
+</div>
+</div>
+<div id="outline-container-org0846630" class="outline-3">
+<h3 id="org0846630"><i>Do-While</i> Loops</h3>
+<div class="outline-text-3" id="text-org0846630">
+<p>
+If you want to check the loop condition <i>after</i> the body of the loop,
+then you write a <i>do-while</i> loop.
+</p>
+
+<p>
+<b>Syntax:</b> <code>do</code> <i>statement</i> <code>while</code> <code>(</code> <i>condition-expression</i> <code>)</code> <code>;</code>
+</p>
+
+<p>
+The <code>do</code>-<code>while</code> statement first executes the statement or &ldquo;body&rdquo; of
+the loop and then evaluates the condition expression, and if that is
+<i>true</i> then executes again the body of the loop, and so on.  Example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">n</span>;
+    scanf(<span class="face-string">"%d"</span>, &amp;n);
+    <span class="face-keyword">do</span> 
+        printf (<span class="face-string">"%d</span><span class="face-escape">\n</span><span class="face-string">"</span>, n--);
+    <span class="face-keyword">while</span> (n &gt; <span class="face-number">0</span>);
+}
+</code></pre>
+</div>
+
+<p>
+<b>Quiz 1:</b>  What happens when you input 0?
+</p>
+
+<p>
+<b>Quiz 2:</b>  What happens when you input 1?
+</p>
+
+<p>
+<b>Quiz 3:</b>  What happens when you input 10?
+</p>
+</div>
+</div>
+<div id="outline-container-org6645b17" class="outline-3">
+<h3 id="org6645b17"><i>For</i> Loops</h3>
+<div class="outline-text-3" id="text-org6645b17">
+<p>
+You often want to write loops in which, in addition to checking the
+loop condition, you do something right before the loop starts, and
+something else at the end of each loop iteration.  A <code>for</code> loop makes
+those things explicit.
+</p>
+
+<p>
+<b>Syntax:</b> <code>for</code> <code>(</code> <i>init-clause</i> <code>;</code> <i>condition-expression</i> <code>;</code> <i>iteration-expression</i> <code>)</code> <i>statement</i>
+</p>
+
+<p>
+Example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">n</span>;
+    scanf(<span class="face-string">"%d"</span>, &amp;n);
+    <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">i</span> = <span class="face-number">1</span>; i &lt; n; <span class="face-variable-use">i</span> *= <span class="face-number">-2</span>) 
+        printf (<span class="face-string">"%d</span><span class="face-escape">\n</span><span class="face-string">"</span>, i);
+}
+</code></pre>
+</div>
+
+<p>
+Of course you can do the same with a <i>while</i> loop:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">n</span>;
+    scanf(<span class="face-string">"%d"</span>, &amp;n);
+    <span class="face-type">int</span> <span class="face-variable-name">i</span> = <span class="face-number">1</span>;
+    <span class="face-keyword">while</span> (i &lt; n) {
+        printf (<span class="face-string">"%d</span><span class="face-escape">\n</span><span class="face-string">"</span>, i);
+        <span class="face-variable-use">i</span> *= <span class="face-number">-2</span>;
+    }
+}
+</code></pre>
+</div>
+</div>
+<div id="outline-container-orgfae573d" class="outline-4">
+<h4 id="orgfae573d">Exercise</h4>
+<div class="outline-text-4" id="text-orgfae573d">
+<p>
+Write a function <code>print_sequence(int n)</code> that, given a non-negative
+number <code>n</code>, outputs \(1, 2, \ldots, n\) on a single line with all
+adjacent numbers separated by a single space.  In fact, write three
+variants of <code>print_sequence(int n)</code> with a <code>while</code>, <code>do</code>-<code>while</code>, and
+<code>for</code> loop, respectively.
+</p>
+</div>
+</div>
+<div id="outline-container-orgeedb0b5" class="outline-4">
+<h4 id="orgeedb0b5">Exercise</h4>
+<div class="outline-text-4" id="text-orgeedb0b5">
+<p>
+Write a function <code>print_sequence_backwards(int n)</code> that, given a
+non-negative number <code>n</code>, outputs \(n, n-1, \ldots, 1\) on a single line
+with all adjacent numbers separated by a single space.  Write three
+variants of <code>print_sequence(int n)</code> with a <code>while</code>, <code>do</code>-<code>while</code>, and
+<code>for</code> loop, respectively.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org9c4cf0e" class="outline-3">
+<h3 id="org9c4cf0e">Exiting or Short-Cutting a Loop</h3>
+<div class="outline-text-3" id="text-org9c4cf0e">
+<p>
+In some cases, you want to terminate a loop from within the body of the
+loop, without having to wait for the evaluation of the loop-condition.
+In other words, you want to break out of a loop.  You can do that with
+a <code>break</code> statement.  Example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">n</span>;
+    scanf(<span class="face-string">"%d"</span>, &amp;n);
+    <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">d</span> = <span class="face-number">2</span>; d*d &lt;= n; ++d) {
+        <span class="face-keyword">if</span> (n % d == <span class="face-number">0</span>) {
+            printf (<span class="face-string">"%d is composite</span><span class="face-escape">\n</span><span class="face-string">"</span>, n);
+            <span class="face-keyword">break</span>;
+        }
+    }
+}
+</code></pre>
+</div>
+
+<p>
+Other times you&rsquo;d want to short-cut the execution of the loop.  That
+is, you want to immediately go to the next iteration without going
+through the rest of the body of the loop.  You can do that with a
+<code>continue</code> statement.  The <code>continue</code> statement, just like the <code>break</code>
+statement, works in <code>for</code> loops as well as in <code>while</code> and <code>do</code>-<code>while</code>
+loops.  Here&rsquo;s an example of a <code>for</code> loop:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">void</span> <span class="face-function-name">print_primes_less_than_100</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">C</span>[<span class="face-number">100</span>];
+    <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">i</span> = <span class="face-number">0</span>; i &lt; <span class="face-number">100</span>; ++i)
+        <span class="face-variable-use">C</span>[<span class="face-variable-use">i</span>] = <span class="face-number">0</span>;
+    <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">i</span> = <span class="face-number">2</span>; i &lt; <span class="face-number">100</span>; ++i) {
+        <span class="face-keyword">if</span> (C[i])
+            <span class="face-keyword">continue</span>;
+        <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">j</span> = i*i; j &lt; <span class="face-number">100</span>; <span class="face-variable-use">j</span> += i)
+            <span class="face-variable-use">C</span>[<span class="face-variable-use">j</span>] = <span class="face-number">1</span>;
+        printf(<span class="face-string">"%d "</span>, i);
+    }
+    printf(<span class="face-string">"</span><span class="face-escape">\n</span><span class="face-string">"</span>);
+}
+</code></pre>
+</div>
+
+<p>
+Notice that the <code>continue</code> statement short-cuts the execution of the
+<i>body</i> of the loop, not the loop condition or the iteration expression
+in a for loop.  In the example above, the <code>continue</code> statement
+effectively jumps to the iteration expression <code>++i</code> that is then
+followed by the evaluation of the loop condition <code>j &lt; 100</code>.
+In <code>while</code> and <code>do</code>-<code>while</code> loops, a <code>continue</code> statement would
+effectively jump to the evaluation of the loop condition.
+</p>
+
+<p>
+The <code>continue</code> and <code>break</code> statements apply to their immediately
+enclosing iteration statement.  The <code>break</code> statement also applies to
+its immediately enclosing <code>switch</code> statement.  Example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">A</span>[<span class="face-number">100</span>];
+    <span class="face-type">int</span> <span class="face-variable-name">n</span> = <span class="face-number">0</span>;
+    <span class="face-keyword">while</span> (n &lt; <span class="face-number">100</span> &amp;&amp; scanf(<span class="face-string">"%d"</span>, &amp;(A[n])) &gt; <span class="face-number">0</span>) {
+        <span class="face-type">int</span> <span class="face-variable-name">found</span> = <span class="face-number">0</span>;
+        <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">i</span> = <span class="face-number">0</span>; i &lt; n; ++i)
+            <span class="face-keyword">if</span> (A[i] == A[n]) {
+                <span class="face-variable-use">found</span> = <span class="face-number">1</span>;
+                <span class="face-keyword">break</span>;
+            }
+        <span class="face-keyword">if</span> (found)
+            <span class="face-keyword">continue</span>;
+        printf(<span class="face-string">"%d</span><span class="face-escape">\n</span><span class="face-string">"</span>, A[n]);
+        ++n;
+    }
+}
+</code></pre>
+</div>
+
+<p>
+Here the <code>break</code> statement is directly contained in the <code>for</code> loop and
+only indirectly contained in the <code>while</code> loop.  So, the <code>break</code>
+statement terminates the <code>for</code> loop, not the <code>while</code> loop.  The
+<code>continue</code> statement is contained within the <code>while</code> loop, so it may
+short-cut the <code>while</code> loop.
+</p>
+
+<p>
+Did you try the example above?  And the one above it
+(<code>print_primes_less_than_100</code>)?  Remember, this is a <i>read-do</i>
+document!
+</p>
+</div>
+<div id="outline-container-orgcc38886" class="outline-4">
+<h4 id="orgcc38886">Exercise</h4>
+<div class="outline-text-4" id="text-orgcc38886">
+<p>
+Explain the semantics of the example above.  Explaining the semantics
+means describing <i>what</i> the code does independent of <i>how</i> it does it.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org25ddf77" class="outline-2">
+<h2 id="org25ddf77">Jump Statements</h2>
+<div class="outline-text-2" id="text-org25ddf77">
+<p>
+We have already seen some jump statements.  The <code>break</code> and <code>continue</code>
+statements are jump statements, since they cause the execution of the
+program to &ldquo;jump&rdquo; to some place in the program.  This is an
+illustration of the &ldquo;jumps&rdquo; in the example above:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">A</span>[<span class="face-number">100</span>];
+    <span class="face-type">int</span> <span class="face-variable-name">n</span> = <span class="face-number">0</span>;
+    <span class="face-keyword">while</span> (n &lt; <span class="face-number">100</span> &amp;&amp; scanf(<span class="face-string">"%d"</span>, &amp;(A[n])) &gt; <span class="face-number">0</span>) {
+        <span class="face-type">int</span> <span class="face-variable-name">found</span> = <span class="face-number">0</span>;
+        <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">i</span> = <span class="face-number">0</span>; i &lt; n; ++i) {
+            <span class="face-keyword">if</span> (A[i] == A[n]) {
+                <span class="face-variable-use">found</span> = <span class="face-number">1</span>;
+                <span class="face-keyword">break</span>;          <span class="face-comment">/* JUMP */</span>
+            }                   <span class="face-comment">/*   |  */</span>
+        }                       <span class="face-comment">/*   |  */</span>
+        <span class="face-comment">/* HERE &lt;--------------------'  */</span>
+        <span class="face-keyword">if</span> (found)
+            <span class="face-keyword">continue</span>;           <span class="face-comment">/* JUMP */</span>
+        printf(<span class="face-string">"%d</span><span class="face-escape">\n</span><span class="face-string">"</span>, A[n]);   <span class="face-comment">/*   |  */</span>
+        ++n;                    <span class="face-comment">/*   |  */</span>
+        <span class="face-comment">/* HERE &lt;--------------------'  */</span>
+    }
+}
+</code></pre>
+</div>
+
+<p>
+There are two more jump statements: <code>goto</code> and <code>return</code>.
+</p>
+</div>
+<div id="outline-container-orga1743a8" class="outline-3">
+<h3 id="orga1743a8">Go-To Statement</h3>
+<div class="outline-text-3" id="text-orga1743a8">
+<p>
+The <code>goto</code> statement transfers the control of the program to a
+specified statement in the code.  The target statement is identified
+by a <i>label.</i> The scope of a label is the entire function where the
+label appears.  This means that <code>goto</code> can jump to any label within
+the same function.
+</p>
+
+<p>
+<b>Syntax:</b> <code>goto</code> <i>label</i> <code>;</code>
+</p>
+
+<p>
+You can label any statement (including a null statement) as follows:
+</p>
+
+<p>
+<b>Syntax:</b> <i>label</i> <code>:</code> <i>statement</i>
+</p>
+
+<p>
+Compared to the other control structures of C and C++, the <code>goto</code>
+statement is a kind of low-level instruction.  It definitely controls
+the execution flow of a program, but it provides little or no
+structure.  You can use the <code>goto</code> statement together with <code>if</code>
+statements to realize any kind of control flow.  However, the
+resulting program is likely to be hard to understand.  For example,
+you can write:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">n</span> = <span class="face-number">0</span>;
+    <span class="face-constant">iterate</span>:
+    printf(<span class="face-string">"%d</span><span class="face-escape">\n</span><span class="face-string">"</span>, n);
+    ++n;
+    <span class="face-keyword">if</span> (n &lt; <span class="face-number">10</span>)
+        <span class="face-keyword">goto</span> iterate;
+}
+</code></pre>
+</div>
+
+<p>
+However, even in this very simple example, the loop structure is not
+very visible.  A better code that does the same thing might look like
+this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">n</span> = <span class="face-number">0</span>; n &lt; <span class="face-number">10</span>; ++n)
+        printf(<span class="face-string">"%d</span><span class="face-escape">\n</span><span class="face-string">"</span>, n);
+}
+</code></pre>
+</div>
+
+<p>
+The message here is, if you need your program to perform a loop, use
+an explicit loop statement.  Same for selection.  Some would even
+argue that the <code>goto</code> statement must be avoided completely.  In fact,
+many other languages do not have the <code>goto</code> statement or anything like
+it.  Still, there are situations in which the <code>goto</code> statement is
+appropriate and even more elegant than other structures.
+</p>
+
+<p>
+The <code>goto</code> statement is particularly useful to deal with error
+conditions.  Remember the example we discussed when we talked about
+the potential failure of input/output operations such as <code>putchar</code>?
+Here&rsquo;s a slightly more compact version of that same example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdio.h&gt;</span>
+<span class="face-preprocessor">#include</span> <span class="face-string">&lt;ctype.h&gt;</span>
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">c</span>;
+    <span class="face-type">int</span> <span class="face-variable-name">x</span> = <span class="face-number">0</span>;
+    <span class="face-type">int</span> <span class="face-variable-name">reading_number</span> = <span class="face-number">0</span>;
+    <span class="face-keyword">do</span> {
+        <span class="face-variable-use">c</span> = getchar();
+        <span class="face-keyword">if</span> (isdigit(c)) {
+            <span class="face-variable-use">reading_number</span> = <span class="face-number">1</span>;
+            <span class="face-variable-use">x</span> = <span class="face-number">10</span>*x + (c - <span class="face-constant">'0'</span>);
+        } <span class="face-keyword">else</span> {
+            <span class="face-keyword">if</span> (reading_number == <span class="face-number">1</span>) {
+                <span class="face-keyword">for</span> (; x &gt; <span class="face-number">0</span>; --x) 
+                    <span class="face-keyword">if</span> (putchar(<span class="face-constant">'#'</span>) == EOF) 
+                        <span class="face-keyword">goto</span> output_error;
+                <span class="face-keyword">if</span> (putchar(<span class="face-constant">'</span><span class="face-escape">\n</span><span class="face-constant">'</span>) == EOF) 
+                    <span class="face-keyword">goto</span> output_error;
+                <span class="face-variable-use">reading_number</span> = <span class="face-number">0</span>;
+            }
+        }
+    } <span class="face-keyword">while</span> (c != EOF);
+    <span class="face-keyword">return</span> <span class="face-number">0</span>;
+ <span class="face-constant">output_error</span>:
+    perror(<span class="face-string">"putchar() failed"</span>);
+    <span class="face-keyword">return</span> <span class="face-number">1</span>;
+}
+</code></pre>
+</div>
+
+<p>
+The benefit is that the error-handling code is in one place, and
+regardless of where you are in the function&mdash;even inside two nested
+loops&mdash;you can jump to that place in case of error.
+</p>
+
+<p>
+Another use of <code>goto</code> statements is to implement a simple finite state
+machine.  Don&rsquo;t worry so much if you don&rsquo;t know what a finite state
+machine is.  Intuitively, it is a program that is in one of a number
+of &ldquo;states&rdquo;, and reacts to different input in different ways depending
+on the state it is in.  For example, the following program counts how
+many words there are in its standard input.  The idea is that the
+program might be reading a word, or it might be reading the spaces
+that separate words.  Those are the two states:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdio.h&gt;</span>
+<span class="face-preprocessor">#include</span> <span class="face-string">&lt;ctype.h&gt;</span>
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">c</span>;
+    <span class="face-type">int</span> <span class="face-variable-name">n</span> = <span class="face-number">0</span>;                  <span class="face-comment">/*         START            */</span>
+                                <span class="face-comment">/*    {n = 0}|              */</span>
+    <span class="face-constant">space</span>:                      <span class="face-comment">/*           ,------------. */</span>
+    <span class="face-variable-use">c</span> = getchar();              <span class="face-comment">/*           v            | */</span>
+    <span class="face-keyword">if</span> (c == EOF)               <span class="face-comment">/*  .-----(SPACE)--space--' */</span>
+        <span class="face-keyword">goto</span> end;               <span class="face-comment">/*  |        |            ^ */</span>
+    <span class="face-keyword">if</span> (isspace(c))             <span class="face-comment">/* EOF   non-space        | */</span>
+        <span class="face-keyword">goto</span> space;             <span class="face-comment">/*  |        |            | */</span>
+                                <span class="face-comment">/*  |        |{++n}       | */</span>
+    ++n;                        <span class="face-comment">/*  |        v            | */</span>
+    <span class="face-constant">word</span>:                       <span class="face-comment">/*  |&lt;-EOF-(WORD)--space--' */</span>
+    <span class="face-variable-use">c</span> = getchar();              <span class="face-comment">/*  |        | ^----.       */</span>
+    <span class="face-keyword">if</span> (c == EOF)               <span class="face-comment">/*  |    non-space  |       */</span>
+        <span class="face-keyword">goto</span> end;               <span class="face-comment">/*  |        |      |       */</span>
+    <span class="face-keyword">if</span> (isspace(c))             <span class="face-comment">/*  |         `-----'       */</span>
+        <span class="face-keyword">goto</span> space;             <span class="face-comment">/*  |                       */</span>
+    <span class="face-keyword">goto</span> word;                  <span class="face-comment">/*  |                       */</span>
+                                <span class="face-comment">/*  `-----&gt;(END) {print n}  */</span>
+    <span class="face-constant">end</span>:                        <span class="face-comment">/*           |              */</span>
+    printf(<span class="face-string">"%d</span><span class="face-escape">\n</span><span class="face-string">"</span>, n);          <span class="face-comment">/*          STOP            */</span>
+}
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org894bf14" class="outline-3">
+<h3 id="org894bf14">Return Statement</h3>
+<div class="outline-text-3" id="text-org894bf14">
+<p>
+The <code>return</code> statement terminates the execution of the current
+function.  The <code>return</code> statement can also specify an expression that
+defines the return value of the function received by the caller.
+</p>
+
+<p>
+<b>Syntax:</b> <code>return</code> <i>expression</i> (optional) <code>;</code> 
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgdfb9dbe" class="outline-2">
+<h2 id="orgdfb9dbe">Exercises</h2>
+<div class="outline-text-2" id="text-orgdfb9dbe">
+</div>
+<div id="outline-container-orgae92d8b" class="outline-3">
+<h3 id="orgae92d8b">Anima</h3>
+<div class="outline-text-3" id="text-orgae92d8b">
+<p>
+The following program takes some text input and produces some output.
+You can think of the output as an encoding of the input.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdio.h&gt;</span>
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">c</span>;
+    <span class="face-keyword">while</span> ((<span class="face-variable-use">c</span> = getchar()) != EOF) {
+        <span class="face-keyword">switch</span> (c) {
+        <span class="face-keyword">case</span> <span class="face-constant">'a'</span>:
+        <span class="face-keyword">case</span> <span class="face-constant">'e'</span>:
+        <span class="face-keyword">case</span> <span class="face-constant">'i'</span>:
+        <span class="face-keyword">case</span> <span class="face-constant">'o'</span>:
+        <span class="face-keyword">case</span> <span class="face-constant">'u'</span>:
+            putchar(c);
+            putchar(<span class="face-constant">'s'</span>);
+        <span class="face-keyword">default</span>:
+            putchar(c);
+        }
+    }
+}
+</code></pre>
+</div>
+
+<p>
+Write a program that performs the inverse encoding.  If you call the
+program above <code>anima</code>, and you call <code>anima_reverse</code> the program you
+write to undo the encoding, then you can test that your program works
+as follows.  First, edit a test input <code>input1.txt</code>, then run the
+following commands:
+</p>
+
+<pre class="example" id="orgeeb694e">
+$ cat input1.txt | ./anima | ./anima_reverse &gt; input1.out
+$ diff input1.txt input1.out
+</pre>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

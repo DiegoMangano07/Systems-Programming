@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-09-30 Wed 08:23 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Exercise Session n. 3</title>
+<meta name="author" content="Antonio Carzaniga" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+ body { font-family: "Noto Sans", Helvetica, sans-serif;
+	font-size: medium;
+	padding: 2em;
+	margin: auto;
+	max-width: 50em; }
+ .title  { text-align: left;
+	   padding-bottom: 0.5ex;
+	   margin-bottom: 2ex;
+	   border-bottom: 2pt solid #000000; }
+.subtitle { text-align: right; font-size: medium; font-weight: bold; margin-top:0; }
+.todo   { font-family: "Hack", monospace; color: red; }
+.done   { font-family: "Hack", monospace; color: green; }
+.priority { font-family: "Hack", monospace; color: orange; }
+.tag    { background-color: #eeeeee; font-family: "Hack", monospace;
+	  padding: 2px; font-size: 80%; font-weight: normal; }
+.timestamp { color: #bebebe; }
+.timestamp-kwd { color: #5f9ea0; }
+.org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+.org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+.org-center { margin-left: auto; margin-right: auto; text-align: center; }
+.underline { text-decoration: underline; }
+h2 { border-top: 1pt solid #000000;
+     margin-top: 3ex; }
+#postamble p, #preamble p { font-size: 90%; margin: .2em; }
+p.verse { margin-left: 3%; }
+pre {
+    border: 1px solid #cccccc;
+    box-shadow: 3px 3px 3px #eeeeee;
+    padding: 8pt;
+    font-family: "Hack", monospace;
+    overflow: auto;
+    margin: 0;
+    background-color: #e8e8e8;
+}
+pre.src {
+    position: relative;
+    overflow: auto;
+}
+pre.example {
+    position: relative;
+    overflow: auto;
+    border-style: solid;
+    border-top-style: none;
+    border-bottom-style: none;
+    border-left-style: solid;
+    border-right-style: solid;
+    border-width: 6pt;
+    border-color: #d0d0d0;
+}
+code { 
+    font-family: "Hack", monospace;
+    padding-left: 1pt;
+    padding-right: 1pt;
+    background-color: #ebebeb;
+}
+a:link {
+    color: #603000;
+    text-decoration: none;
+    font-weight: bold; 
+}
+a:visited {
+    color: #603010;
+    text-decoration: none;
+    font-weight: bold; 
+}
+table { margin: auto; border-collapse:collapse; }
+thead { background-color: #f0f0f0; font-weight: bold; }
+caption.t-above { caption-side: top; }
+caption.t-bottom { caption-side: bottom; }
+td, th { vertical-align:top; }
+th.org-right  { text-align: center;  }
+th.org-left   { text-align: center;   }
+th.org-center { text-align: center; }
+td.org-right  { text-align: right;  }
+td.org-left   { text-align: left;   }
+td.org-center { text-align: center; }
+dt { font-weight: bold; }
+.footpara { display: inline; }
+.footdef  { margin-bottom: 1em; }
+.figure { padding: 1em; }
+.figure p { text-align: center; }
+.equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+}
+.equation {
+    vertical-align: middle;
+}
+.equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+}
+.inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+}
+#org-div-home-and-up { text-align: right; font-size: 70%; white-space: nowrap; }
+textarea { overflow-x: auto; }
+.linenr { font-size: smaller }
+.code-highlighted { background-color: #ffff00; }
+.org-info-js_info-navigation { border-style: none; }
+#org-info-js_console-label { font-size: 10px; font-weight: bold; white-space: nowrap; }
+.org-info-js_search-highlight { background-color: #ffff00; color: #000000; font-weight: bold; }
+.org-svg { }
+.face-builtin { color: #338033; }
+.face-comment { color: #5C7A99; }
+.face-comment-delimiter { color: #5C7A99; }
+.face-constant { color: #335980; }
+.face-doc { color: #80335A; }
+.face-function-name { color: #3D3380; font-weight: bold; }
+.face-keyword { color: #000000; font-weight: bold; }
+.face-preprocessor { color: #338033; }
+.face-string { color: #648033; font-style: italic; }
+.face-type { color: #803333; }
+.face-variable-name { color: #333380; }
+  /*]]>*/-->
+</style>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Exercise Session n. 3
+<br />
+<span class="subtitle">Systems Programming</span>
+</h1>
+<p>
+We start practicing a bit with C strings.  We have yet to study
+strings in detail.  However, we can just use a quick and informal
+definition, and then proceed intuitively.
+</p>
+
+<p>
+In C, a <i>string</i> is an array of characters (<code>char</code>) terminated by a
+special &ldquo;terminator&rdquo; character.  The terminator <code>char</code> is 0.  Recall
+that <code>char</code> objects are just numbers, so 0 is a valid <code>char</code>.  Also
+notice that the terminator is the <i>number</i> 0, not the character &ldquo;0&rdquo;.
+In your code, you can simply write <code>0</code>, or <code>'\0'</code> (but again, not
+<code>'0'</code>).  You can even put a <code>0</code> character in a literal string, like
+so: <code>"here comes the terminator: \0"</code>.
+</p>
+
+<p>
+So, we define a string as an array, but we haven&rsquo;t seen arrays either.
+Well, what can I say, <i>use the force, Luke!</i> For our purposes, an
+array is a sequence of elements that can be accessed individually by
+their position (or &ldquo;index&rdquo;).  For example, in the following code, we
+have a function called <code>print_first_k</code> that prints the first \(k\)
+characters of a given string \(S\).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">void</span> <span class="face-function-name">print_first_k</span> (<span class="face-type">char</span> <span class="face-variable-name">S</span>[], <span class="face-type">int</span> <span class="face-variable-name">k</span>) {
+    <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">i</span> = <span class="face-number">0</span>; i &lt; k &amp;&amp; S[i] != <span class="face-number">0</span>; ++i)
+        putchar(S[i]);
+}
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    print_first_k (<span class="face-string">"ciao"</span>, <span class="face-number">2</span>);
+}
+</code></pre>
+</div>
+
+<p>
+Notice that we stop printing as soon as we reach the terminator
+character <code>S[i] == 0</code>.
+</p>
+
+<p>
+Here&rsquo;s another example program.  This one counts and prints the total
+number of times the character &ldquo;a&rdquo; appears in any of the program&rsquo;s
+command-line arguments:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-function-name">main</span> (<span class="face-type">int</span> <span class="face-variable-name">argc</span>, <span class="face-type">char</span> * <span class="face-variable-name">argv</span>[]) {
+    <span class="face-type">unsigned</span> <span class="face-variable-name">n</span> = <span class="face-number">0</span>;
+    <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">i</span> = <span class="face-number">1</span>; i &lt; argc; ++i)
+        <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">j</span> = <span class="face-number">0</span>; argv[i][j] != <span class="face-number">0</span>; ++j)
+            <span class="face-keyword">if</span> (argv[i][j] == <span class="face-constant">'a'</span>)
+                ++n;
+    printf(<span class="face-string">"%u</span><span class="face-escape">\n</span><span class="face-string">"</span>, n);
+}
+</code></pre>
+</div>
+<div id="outline-container-org2b7954c" class="outline-2">
+<h2 id="org2b7954c">Longest Argument</h2>
+<div class="outline-text-2" id="text-org2b7954c">
+<p>
+Write a program called <code>longest_argument</code> that prints the longest
+command-line argument you pass to it.  If there are more than one
+maximal arguments, the program must print the first one (leftmost).
+</p>
+
+<pre class="example" id="orge5eaf6f">
+$ ./longest_argument ciao
+ciao
+$ ./longest_argument ciao miao bao
+ciao
+$ ./longest_argument gino lino pino si divertono un casino
+divertono
+</pre>
+</div>
+</div>
+<div id="outline-container-orgdf06941" class="outline-2">
+<h2 id="orgdf06941">Longest Common Prefix</h2>
+<div class="outline-text-2" id="text-orgdf06941">
+<p>
+Write a program called <code>lcp</code> that prints on the standard output the
+maximal length of any common prefix in two or more of its command-line
+arguments.  For example:
+</p>
+
+<pre class="example" id="org87264ef">
+$ ./lcp ciao miao bao
+0
+$ ./lcp professor prefers to teach programming
+3
+</pre>
+</div>
+</div>
+<div id="outline-container-org5472669" class="outline-2">
+<h2 id="org5472669">Longest Common Prefix for All Arguments</h2>
+<div class="outline-text-2" id="text-org5472669">
+<p>
+Write a program called <code>lcp4a</code> that prints on the standard output the
+maximal length of the prefix that is common between all its
+command-line arguments.  For example:
+</p>
+
+<pre class="example" id="orgae1c024">
+$ ./lcp4a ciao miao bao
+0
+$ ./lcp4a professor prefers to teach programming
+0
+$ ./lcp4a professor prefers programming
+2
+</pre>
+</div>
+</div>
+</div>
+</body>
+</html>

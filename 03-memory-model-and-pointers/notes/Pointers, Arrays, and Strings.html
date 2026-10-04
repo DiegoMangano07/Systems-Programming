@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-09-30 Wed 08:40 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pointers, Arrays, and Strings</title>
+<meta name="author" content="Antonio Carzaniga" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+ body { font-family: "Noto Sans", Helvetica, sans-serif;
+	font-size: medium;
+	padding: 2em;
+	margin: auto;
+	max-width: 50em; }
+ .title  { text-align: left;
+	   padding-bottom: 0.5ex;
+	   margin-bottom: 2ex;
+	   border-bottom: 2pt solid #000000; }
+.subtitle { text-align: right; font-size: medium; font-weight: bold; margin-top:0; }
+.todo   { font-family: "Hack", monospace; color: red; }
+.done   { font-family: "Hack", monospace; color: green; }
+.priority { font-family: "Hack", monospace; color: orange; }
+.tag    { background-color: #eeeeee; font-family: "Hack", monospace;
+	  padding: 2px; font-size: 80%; font-weight: normal; }
+.timestamp { color: #bebebe; }
+.timestamp-kwd { color: #5f9ea0; }
+.org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+.org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+.org-center { margin-left: auto; margin-right: auto; text-align: center; }
+.underline { text-decoration: underline; }
+h2 { border-top: 1pt solid #000000;
+     margin-top: 3ex; }
+#postamble p, #preamble p { font-size: 90%; margin: .2em; }
+p.verse { margin-left: 3%; }
+pre {
+    border: 1px solid #cccccc;
+    box-shadow: 3px 3px 3px #eeeeee;
+    padding: 8pt;
+    font-family: "Hack", monospace;
+    overflow: auto;
+    margin: 0;
+    background-color: #e8e8e8;
+}
+pre.src {
+    position: relative;
+    overflow: auto;
+}
+pre.example {
+    position: relative;
+    overflow: auto;
+    border-style: solid;
+    border-top-style: none;
+    border-bottom-style: none;
+    border-left-style: solid;
+    border-right-style: solid;
+    border-width: 6pt;
+    border-color: #d0d0d0;
+}
+code { 
+    font-family: "Hack", monospace;
+    padding-left: 1pt;
+    padding-right: 1pt;
+    background-color: #ebebeb;
+}
+a:link {
+    color: #603000;
+    text-decoration: none;
+    font-weight: bold; 
+}
+a:visited {
+    color: #603010;
+    text-decoration: none;
+    font-weight: bold; 
+}
+table { margin: auto; border-collapse:collapse; }
+thead { background-color: #f0f0f0; font-weight: bold; }
+caption.t-above { caption-side: top; }
+caption.t-bottom { caption-side: bottom; }
+td, th { vertical-align:top; }
+th.org-right  { text-align: center;  }
+th.org-left   { text-align: center;   }
+th.org-center { text-align: center; }
+td.org-right  { text-align: right;  }
+td.org-left   { text-align: left;   }
+td.org-center { text-align: center; }
+dt { font-weight: bold; }
+.footpara { display: inline; }
+.footdef  { margin-bottom: 1em; }
+.figure { padding: 1em; }
+.figure p { text-align: center; }
+.equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+}
+.equation {
+    vertical-align: middle;
+}
+.equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+}
+.inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+}
+#org-div-home-and-up { text-align: right; font-size: 70%; white-space: nowrap; }
+textarea { overflow-x: auto; }
+.linenr { font-size: smaller }
+.code-highlighted { background-color: #ffff00; }
+.org-info-js_info-navigation { border-style: none; }
+#org-info-js_console-label { font-size: 10px; font-weight: bold; white-space: nowrap; }
+.org-info-js_search-highlight { background-color: #ffff00; color: #000000; font-weight: bold; }
+.org-svg { }
+.face-builtin { color: #338033; }
+.face-comment { color: #5C7A99; }
+.face-comment-delimiter { color: #5C7A99; }
+.face-constant { color: #335980; }
+.face-doc { color: #80335A; }
+.face-function-name { color: #3D3380; font-weight: bold; }
+.face-keyword { color: #000000; font-weight: bold; }
+.face-preprocessor { color: #338033; }
+.face-string { color: #648033; font-style: italic; }
+.face-type { color: #803333; }
+.face-variable-name { color: #333380; }
+  /*]]>*/-->
+</style>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Pointers, Arrays, and Strings</h1>
+<p>
+The main concept we develop here is an abstraction of the computer&rsquo;s
+main memory.  We want to first understand how data is stored in
+memory.  We then want to access data through their memory address. A
+memory address can itself be stored and manipulated as data.  This is
+what we call a <i>pointer.</i> Thus a pointer serves as a reference to data
+stored in memory.  Accessing data by memory address is analogous to
+accessing the elements of an array by their index within the array.
+Thus the concepts of arrays and pointers are closely related.  Strings
+are also essentially arrays of characters, and since they are so
+common and important in general, we discuss them in some detail here,
+too.
+</p>
+<div id="outline-container-org8a0db85" class="outline-2">
+<h2 id="org8a0db85">Objects and Pointers</h2>
+<div class="outline-text-2" id="text-org8a0db85">
+<p>
+When we have some data stored in memory, we generically call that
+region of memory an <i>object.</i> Don&rsquo;t confuse this with the notion of
+object in &ldquo;object-oriented programming&rdquo;.  At some point we&rsquo;ll see how
+we can realize the main features of object-oriented programming in C,
+including private data, access methods, inheritance, etc.  However,
+for us an object is just data in memory.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">char</span> <span class="face-variable-name">c</span>;         <span class="face-comment">/* char object, initial value is indeterminate */</span>
+<span class="face-type">int</span> <span class="face-variable-name">i</span> = <span class="face-number">5</span>;      <span class="face-comment">/* int object, initial value is 5 */</span>
+<span class="face-type">int</span> <span class="face-variable-name">A</span>[<span class="face-number">10</span>];      <span class="face-comment">/* array object consisting of 10 int objects */</span>
+<span class="face-keyword">struct</span> {
+    <span class="face-type">float</span> <span class="face-property-name">x</span>;
+    <span class="face-type">float</span> <span class="face-property-name">y</span>;
+} <span class="face-variable-name">p</span>;            <span class="face-comment">/* struct object consisting of two float objects */</span>
+</code></pre>
+</div>
+
+<p>
+In the code above, we declare an object of type <code>char</code> called <code>c</code> and
+another object of type <code>int</code> called <code>i</code>.  So, a single variable of a
+basic type is an object.  An object can also be an aggregate of other
+objects, such as an array (<code>int A[10]</code>) or a structure 
+(<code>struct { float x; float y; } p</code>).  We will discuss structures in
+detail later, but you get the general idea.
+</p>
+</div>
+<div id="outline-container-org362a9f0" class="outline-3">
+<h3 id="org362a9f0">Object Values and Types</h3>
+<div class="outline-text-3" id="text-org362a9f0">
+<p>
+An object has a <i>value.</i> An object is data stored in a chunk of
+memory, whose content can be thought of as a sequence of bits.  This
+sequence of bits (or &ldquo;bit pattern&rdquo;) somehow represents the value of
+the object.  However, that representation is an
+implementation-dependent detail.  What we care about here&mdash;the <i>value
+of the object</i>&mdash;is a semantically meaningful abstraction of the
+actual memory bits.  For example, in the code above, object <code>i</code> holds
+the integer value <code>5</code>.  On some platforms, that value might correspond
+to the bit pattern <code>00000000000000000000000000000111</code>; on other
+platforms the representation of <code>5</code> might be
+<code>00000111000000000000000000000000</code>; on yet another platform it might
+be <code>0000011100000000</code>.  But again, those are details of the
+implementation.  From our perspective, which is the point of view of a
+C/C++ program, object <code>i</code> has a value that is the ordinary numeric
+value 5.
+</p>
+
+<p>
+An object also has a <i>type.</i> The type defines the set of possible
+values for the object, as well as the semantics of expressions
+involving the object.  Notice that the type of the object is not a
+piece of information stored within the object.<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>  Rather, it is a
+property of how the program uses the object.  For objects that are
+explicitly declared in a program, as in the example above, the type is
+the one given by the declaration.  So <code>int i</code> declares an object of
+type <code>int</code>.  Pretty obvious.  But there are also cases in which an
+object acquires a type by other mechanisms.  We&rsquo;ll see that another
+time.
+</p>
+</div>
+</div>
+<div id="outline-container-org7adc665" class="outline-3">
+<h3 id="org7adc665">Object Size</h3>
+<div class="outline-text-3" id="text-org7adc665">
+<p>
+Another property of the object is its <i>size.</i> This one is concrete and
+relatively simple.  An object spans a contiguous region of memory.
+The size of the object is the number of bytes it spans.  If you have
+the object or its type, you can get the size with the <code>sizeof</code>
+operator.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdio.h&gt;</span>
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">i</span>;      
+    printf (<span class="face-string">"The size of i is %zu bytes</span><span class="face-escape">\n</span><span class="face-string">"</span>
+            <span class="face-string">"The size of an int is %zu bytes -- no surprise</span><span class="face-escape">\n</span><span class="face-string">"</span>,
+            <span class="face-keyword">sizeof</span>(i), <span class="face-keyword">sizeof</span>(<span class="face-type">int</span>));
+}
+</code></pre>
+</div>
+
+<p>
+Thus the <code>sizeof</code> operator can be applied to a variable or more
+generally to an expression (e.g., <code>i</code>), or to a type definition (e.g.,
+<code>int</code>).  The size is known at compile time.  It is the compiler that
+decides how to represent an <code>int</code> or whatever other object you might
+want to define, so the compiler most definitely knows the value of
+<code>sizeof(x)</code> for any object or type <code>x</code>.  In other words, <code>sizeof(x)</code>
+is not an invocation of a <code>sizeof</code> function.  There is no such
+function, and in fact there is no run-time call of any function, and
+furthermore the expression used as the operand of <code>sizeof</code> is not even
+evaluated.  Instead, what matters is the <i>type</i> of the expression, and
+therefore writing <code>sizeof(x)</code> is equivalent to writing the literal
+value <code>4</code> or whatever the size is.<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>
+</p>
+
+<p>
+One last point about <code>sizeof</code>.  As we said, <code>sizeof</code> gives you the
+size of an object measured in <i>bytes.</i> Don&rsquo;t confuse that with the
+number of elements of an array or the length of a string.  To see the
+difference, try the following program.  Do it now!  I know we haven&rsquo;t
+seen strings or arrays in detail yet, but the example is intuitive
+enough.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdio.h&gt;</span>
+<span class="face-preprocessor">#include</span> <span class="face-string">&lt;string.h&gt;</span>
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">A</span>[<span class="face-number">10</span>];
+    <span class="face-type">char</span> * <span class="face-variable-name">s</span> = <span class="face-string">"Use the Force, Luke!"</span>;
+    <span class="face-type">char</span> <span class="face-variable-name">S</span>[] = <span class="face-string">"ABC"</span>;
+    printf (<span class="face-string">"sizeof(A) = %2zu bytes</span><span class="face-escape">\t</span><span class="face-string">(int A[10])</span><span class="face-escape">\n</span><span class="face-string">"</span>, <span class="face-keyword">sizeof</span>(A));
+    printf (<span class="face-string">"sizeof(s) = %2zu bytes</span><span class="face-escape">\t</span><span class="face-string">(char * s = </span><span class="face-escape">\"</span><span class="face-string">%s</span><span class="face-escape">\"</span><span class="face-string">)</span><span class="face-escape">\n</span><span class="face-string">"</span>, <span class="face-keyword">sizeof</span>(s), s);
+    printf (<span class="face-string">"strlen(s) = %2zu bytes</span><span class="face-escape">\t</span><span class="face-string">(char * s = </span><span class="face-escape">\"</span><span class="face-string">%s</span><span class="face-escape">\"</span><span class="face-string">)</span><span class="face-escape">\n</span><span class="face-string">"</span>, strlen(s), s);
+    printf (<span class="face-string">"strlen(S) = %2zu bytes</span><span class="face-escape">\t</span><span class="face-string">(char S[] = </span><span class="face-escape">\"</span><span class="face-string">%s</span><span class="face-escape">\"</span><span class="face-string">)</span><span class="face-escape">\n</span><span class="face-string">"</span>, strlen(S), S);
+    printf (<span class="face-string">"sizeof(S) = %2zu bytes</span><span class="face-escape">\t</span><span class="face-string">(char S[] = </span><span class="face-escape">\"</span><span class="face-string">%s</span><span class="face-escape">\"</span><span class="face-string">)</span><span class="face-escape">\n</span><span class="face-string">"</span>, <span class="face-keyword">sizeof</span>(S), S);
+}
+</code></pre>
+</div>
+
+<p>
+Now that you see the differences between <code>sizeof</code> and <code>strlen</code> when
+applied to the same expressions in the example above, can you explain
+those differences?
+</p>
+</div>
+</div>
+<div id="outline-container-orgb8b5b81" class="outline-3">
+<h3 id="orgb8b5b81">Bytes, the Memory Model, and Object Representation</h3>
+<div class="outline-text-3" id="text-orgb8b5b81">
+<p>
+We measure the size of an object in bytes.  But what is a byte,
+exactly?  Excellent question.  In talking about input/output, we
+define a byte as a number between 0 and 255.  That is what we can
+represent in the most straightforward way with 8 bits, which is indeed
+the most common bit-width for a byte these days.  (But that wasn&rsquo;t the
+case in the past&hellip;) However, that isn&rsquo;t the essence of the notion of
+byte for input/output or for the memory model of C/C++, which is what
+we&rsquo;re after right now.  So, what is the essence of the notion of a
+byte?  For input/output operations, a byte is the smallest unit of
+data you can read from or write into an input or output stream or
+file.  And the memory model of C/C++ is based on the same notion: a
+byte is the minimal unit of data that you can read from or write into
+memory.
+</p>
+
+<p>
+Here&rsquo;s the real definition: a <i>byte</i> is <i>the smallest chunk of memory
+that you can address individually.</i> You can address an individual
+<code>int</code> object, but that is not the smallest addressable object (on most
+modern architectures).  A single bit is definitely the smallest unit
+of memory, but bits can not be addressed individually (on most modern
+architectures).  Most often (again, on common modern architectures) a
+byte consists of 8 bits, and therefore can store up to 256 values that
+can be interpreted as numbers between 0 and 255.
+</p>
+
+<p>
+In C/C++, a byte corresponds to a <code>char</code>.  So, the size of a <code>char</code>
+object is 1, by definition.  That&rsquo;s the size in bytes.  The size in
+bits is instead platform dependent, and is given by the <code>CHAR_BIT</code>
+constant defined in <code>limits.h</code>.  And again, the most common value for
+<code>CHAR_BIT</code> is 8.  The <code>char</code> type is intended for the interpretation
+of bytes as characters.  To interpret bytes as numbers, we have
+<code>signed char</code> (typically from -128 to 127) and <code>unsigned char</code>
+(typically from 0 to 255).  Notice that <code>char</code> is also a numeric type,
+and its range is that of either <code>signed char</code> or <code>unsigned char</code>,
+depending on the platform.
+</p>
+
+<p>
+Since bytes are the smallest units of memory you can address
+individually, and since <code>unsigned char</code> is the most basic type of a
+byte value in C, we can think of the memory of a C program as a big
+array of <code>unsigned char</code> objects.  And since an object is essentially
+a contiguous region of memory, the <i>representation</i> of an
+object&mdash;meaning the content of the memory that represents the
+object&mdash;can also be seen as an array of <code>unsigned char</code>.  This is not
+just a conceptual image of the representation of an object.  It is
+<i>the</i> representation of any object <i>of any type</i> \(T\) in memory in its
+raw form.
+</p>
+
+<p>
+But wait, earlier we said that the representation of an object is
+implementation-specific and therefore should not matter to us.  So,
+why should we care about getting the representation of an object?  The
+thing is, the representation might mean nothing in and of itself, but
+a valid representation for a certain value will always be a valid
+representation for that value.  More specifically, if an <code>unsigned
+char</code> array \(M_x\) contains a valid representation of value \(x\) of type
+\(T\), then the content of \(M_x\) will always be a valid representation
+of value \(x\) for any other object of type \(T\).  Therefore, object
+representations can still be useful, among other things, to copy or
+save and restore object values.
+</p>
+
+<p>
+Concretely, you can copy the representation of an object as a whole
+into an array of <code>unsigned char</code>, then save that array, perhaps
+writing its content onto some file or even on a hand-written note, and
+later copy that same sequence of <code>unsigned char</code> values into another
+object of type \(T\), and you are guaranteed to obtain a perfectly valid
+object of type \(T\) with exactly the same value as the original object.
+To do this back-and-forth memory copy, you must use the <code>memcpy</code>
+function of the C/C++ standard library.  Still, the point is that you
+can do that for any object <i>regardless of the semantic value of the
+object.</i> For example, the code below prints the memory representation
+of an <code>int</code> object.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdio.h&gt;</span>
+<span class="face-preprocessor">#include</span> <span class="face-string">&lt;string.h&gt;</span>
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">a</span>;
+    <span class="face-type">unsigned char</span> <span class="face-variable-name">a_rep</span>[<span class="face-keyword">sizeof</span>(a)];
+    printf (<span class="face-string">"input an integer: "</span>);
+    scanf (<span class="face-string">"%d"</span>, &amp;a);
+    memcpy(a_rep, &amp;a, <span class="face-keyword">sizeof</span>(a)); <span class="face-comment">/* copy the representation of a into a_rep */</span>
+    printf (<span class="face-string">"the representation of %d (int) is:"</span>, a);
+    <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">i</span> = <span class="face-number">0</span>; i &lt; <span class="face-keyword">sizeof</span>(a); ++i)
+        printf (<span class="face-string">" %hhu"</span>, a_rep[i]);
+    printf (<span class="face-string">"</span><span class="face-escape">\n</span><span class="face-string">"</span>);
+}
+</code></pre>
+</div>
+
+<p>
+And the code below goes in the opposite direction, from an array of
+<code>unsigned char</code> into an <code>int</code> object.  Notice that we again use
+<code>memcpy</code>, this time to construct an <code>int</code> value by writing its
+representation from a sequence of bytes.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdio.h&gt;</span>
+<span class="face-preprocessor">#include</span> <span class="face-string">&lt;string.h&gt;</span>
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">a</span>;
+    <span class="face-type">unsigned char</span> <span class="face-variable-name">a_rep</span>[<span class="face-keyword">sizeof</span>(a)];
+    printf (<span class="face-string">"input the %zu byte values that make up the representation of an integer: "</span>, <span class="face-keyword">sizeof</span>(a));
+    <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">i</span> = <span class="face-number">0</span>; i &lt; <span class="face-keyword">sizeof</span>(a); ++i)
+        scanf (<span class="face-string">"%hhu "</span>, &amp;(a_rep[i]));
+    memcpy(&amp;a, a_rep, <span class="face-keyword">sizeof</span>(a)); <span class="face-comment">/* copy the bytes in a_rep into object a */</span>
+    printf (<span class="face-string">"the int value of"</span>);
+    <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">i</span> = <span class="face-number">0</span>; i &lt; <span class="face-keyword">sizeof</span>(a); ++i)
+        printf (<span class="face-string">" %hhu"</span>, a_rep[i]);
+    printf (<span class="face-string">" is: %d</span><span class="face-escape">\n</span><span class="face-string">"</span>, a);
+}
+</code></pre>
+</div>
+
+<p>
+So, there you go.  Object representations are platform dependent, but
+still, the Frankenstein-style memory copy illustrated above is a
+perfectly valid and safe way to read and construct object values.
+</p>
+
+<p>
+<b>Quiz 1:</b>  What&rsquo;s the value of <code>sizeof(char)</code>?
+</p>
+
+<p>
+<b>Quiz 2:</b>  Is <code>sizeof(char)</code> platform-dependent?
+</p>
+</div>
+</div>
+<div id="outline-container-orga44e335" class="outline-3">
+<h3 id="orga44e335">Object Lifetime</h3>
+<div class="outline-text-3" id="text-orga44e335">
+<p>
+Yet another property of an object is its <i>lifetime.</i> This is the
+portion of the execution of the program (possibly the whole execution)
+during which the object exists and has a stored value at an immutable
+position in memory.  Just as a quick example, consider the following
+code:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdio.h&gt;</span>
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">unsigned int</span> <span class="face-variable-name">count</span> = <span class="face-number">0</span>;
+    <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">c</span> = getchar(); c != EOF; <span class="face-variable-use">c</span> = getchar())
+        <span class="face-keyword">if</span> (c == <span class="face-constant">' '</span>)
+            ++count;
+    printf (<span class="face-string">"%ud</span><span class="face-escape">\n</span><span class="face-string">"</span>, count);
+}
+</code></pre>
+</div>
+
+<p>
+The lifetime of <code>count</code> is the entire execution of the <code>main</code>
+function.  However, the lifetime of <code>c</code> is the execution of the <code>for</code>
+loop.  Understanding this concept and in each case knowing the exact
+lifetime of an object is absolutely essential.  So, this is a topic we
+will definitely return to.
+</p>
+</div>
+</div>
+<div id="outline-container-orgf1de4e5" class="outline-3">
+<h3 id="orgf1de4e5">Memory Addresses and Pointers</h3>
+<div class="outline-text-3" id="text-orgf1de4e5">
+<p>
+With all these properties, you might think that the concept of object
+is complicated. Nah. In essence, it is quite straightforward: objects
+are values stored in memory.  Big deal.  But then, what&rsquo;s the big
+fuss, uh?!  (And just as an aside, does it even make sense to talk
+about a value <i>not</i> stored in memory?)  Well, this <i>is</i> a big deal.
+I&rsquo;d go as far as claiming that&mdash;brace yourself&mdash;it is the most
+important notion if you really want to understand systems programming
+and programming in C/C++, and many other languages.  <i>I said it!</i> (And
+then yes, there are most definitely values that aren&rsquo;t stored in
+memory, and we&rsquo;ll discuss those as well at some point.)  So why is
+this notion of object such a big deal?  Sit up, take a deep breath,
+and listen carefully.  Here it comes.
+</p>
+
+<p>
+In addition to its value, size, lifetime, etc., an object has an
+<i>address,</i> a memory address.  The address is what it says it is: it&rsquo;s
+an indication of the location of the object in memory.  And since the
+address of an object stays constant during the lifetime of the object,
+you can use that address to refer to the object in your program.
+Furthermore, an address is itself a value, that can therefore be
+manipulated in expressions and stored in objects just like any other
+value.  This is indeed a huge deal&mdash;YUGE!
+</p>
+
+<p>
+This notion&mdash;the idea of a memory address that can be used to access
+an object, and that is itself data, potentially stored in another
+object&hellip;&mdash;is so important that C and C++ have specific language
+constructs to represent and use those addresses, namely <i>pointers</i>.  A
+pointer is an abstraction of a memory address.  The actual
+representation of memory addresses is platform dependent and
+ultimately irrelevant for us, and even the addresses themselves,
+meaning the <i>values</i> of pointers, have no meaning in and of
+themselves.  What is important is that a pointer can &ldquo;point to&rdquo; an
+existing object, and therefore allows the program to use that object,
+indirectly.  I told you, this is huge.
+</p>
+
+<p>
+Still not convinced, eh?  You might think, we have those objects and
+we know their names, since we declared them ourselves.  And we can of
+course refer to each object by name.  You can write things like
+<code>i = 7; printf("%d\n", i);</code> which first writes the value <code>7</code> into the
+object we called <code>i</code>, and then reads and prints the value of the same
+object.  Not only that: we have seen a lot of code until now, and none
+of that uses pointers, right?  What else is there that we need
+pointers for?
+</p>
+
+<p>
+Well, first of all, <i>wrong,</i> the code we saw does use pointers here
+and there.  Even the very first &ldquo;Hello, World!&rdquo; example does in fact
+use pointers.  But more importantly, think about it, how would you
+implement a dynamic data structure?  I mean something like a linked
+list or a binary tree.  How would you do that without pointers?<sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup>
+</p>
+
+<p>
+You might still argue that other programming languages like Java and
+Python don&rsquo;t have pointers.  So, pointers can&rsquo;t be so fundamental,
+right?  <i>WRONG!</i> Big mistake.  Pointers are <i>everywhere</i> in Java and
+Python.  Java and Python programmers just don&rsquo;t call them that way.
+In Java, except for basic types like <code>int</code> and <code>double</code>, all objects
+are accessed by pointers.<sup><a id="fnr.4" class="footref" href="#fn.4" role="doc-backlink">4</a></sup>  If you declare a string with <code>String s</code> or
+an array of integers with <code>int [] A</code>, you are not declaring any object
+of type <code>String</code> or any array.  You&rsquo;re declaring <i>pointers</i> to those
+objects: <code>s</code> is a pointer to an object of type <code>String</code>, and <code>A</code> is a
+pointer to an array of <code>int</code>.  The objects themselves don&rsquo;t even exist
+with just those declarations, and in fact the initial value of <code>s</code> and
+<code>A</code> is the &ldquo;null&rdquo; pointer.  So, Java is all about pointers, except
+that they are called &ldquo;references.&rdquo;  Same thing in Python.  In fact,
+while in Java there are at least some objects that you can actually
+declare and access directly, namely variables of the basic types such
+as <code>int i = 7</code>, in Python literally everything is a pointer.  Even a
+simple assignment like <code>x = 7</code> that supposedly assigns what looks like
+an integer value to <code>x</code> actually assigns a pointer to an object of
+type <code>int</code> whose semantic value is <code>7</code>.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org6625657" class="outline-2">
+<h2 id="org6625657">Programming with Pointers (Very Basic)</h2>
+<div class="outline-text-2" id="text-org6625657">
+<p>
+A pointer is the address of an object.  We can store and use those
+addresses with pointer variables (objects).  At a basic level,
+pointers are variables like any other.  They need to be declared (and
+defined), they can be assigned values, they can be passed to
+functions, and in general they can be used in expressions.  Let&rsquo;s
+start with declarations/definitions.  The code below declares and
+defines an <code>int</code> object called <code>i</code> and another object called <code>p</code> that
+can store a pointer to an <code>int</code> object:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-variable-name">i</span>;                          <span class="face-comment">/* an int object */</span>
+<span class="face-type">int</span> * <span class="face-variable-name">p</span>;                        <span class="face-comment">/* a pointer-to-int object */</span>
+</code></pre>
+</div>
+
+<p>
+Notice first of all that pointers are <i>typed.</i> In the example above,
+<code>p</code> is a pointer to <code>int</code>, so it can be used (only) to refer to
+objects of type <code>int</code>.  The way you write &ldquo;pointer to <code>int</code>&rdquo; in C is
+<code>int *</code>, which, again, denotes a <i>type</i> and therefore can be used
+anywhere you need to specify a type.  For example, you can declare a
+function as follows:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> * <span class="face-function-name">get_parameter</span> (<span class="face-keyword">const</span> <span class="face-type">char</span> *);
+</code></pre>
+</div>
+
+<p>
+Thus <code>get_parameter</code> is a function that takes a pointer to constant
+<code>char</code> and returns a pointer to <code>int</code>.  We might be getting ahead of
+ourselves here, but hey, you&rsquo;re here to develop good intuitions!
+</p>
+</div>
+<div id="outline-container-org46c5d24" class="outline-3">
+<h3 id="org46c5d24">The <i>Address-Of</i> Operator</h3>
+<div class="outline-text-3" id="text-org46c5d24">
+<p>
+Now we have some pointer variables.  Let&rsquo;s see how to use them.
+Initially the values of <code>i</code> and <code>p</code> are indeterminate, since the two
+objects have not been initialized.  So let&rsquo;s give them some values.
+For <code>int</code> objects we can write literal values directly in the program.
+For example, we can write <code>i = 5;</code> and that would store the <code>int</code>
+value <code>5</code> into <code>i</code>.  That makes sense and is useful because the
+semantics of the <code>int</code> type&mdash;meaning, the concept of an integer, its
+arithmetic operations, order relations, etc.&mdash;is well defined at the
+application level.
+</p>
+
+<p>
+Things are different for pointers.  Memory addresses are platform
+dependent, and furthermore they can change from one execution to the
+next.  And even if they didn&rsquo;t, their specific values are meaningless
+at the level of applications.  So, it makes no sense for us to try to
+assign a predetermined, literal value to <code>p</code>.  Actually, that&rsquo;s not
+completely true.  There is one literal value that makes sense as a
+pointer value.  That&rsquo;s the &ldquo;null&rdquo; pointer, and we&rsquo;ll discuss that
+later.  But other than that, the only values that make sense for
+pointers are the addresses of specific existing objects.  In our
+example, we do have an <code>int</code> object, <code>i</code>, so what we can do is take
+its address and assign it to <code>p</code>.  With that, we can say that <code>p</code>
+<i>point to</i> <code>i</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-variable-use">i</span> = <span class="face-number">7</span>;                        <span class="face-comment">/* the value of i is 7 */</span>
+<span class="face-variable-use">p</span> = &amp;i;                       <span class="face-comment">/* the value of p is the address of i */</span>
+</code></pre>
+</div>
+
+<p>
+The <i>address-of</i> operator (<code>&amp;</code>) applies to an object and returns the
+address of that object.  In the example above, the address-of operator
+takes the address of a named variable (<code>i</code>).  However, it can take the
+address of any object.  For example, here we apply it to an <code>int</code>
+object that is itself a member of an array object.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-variable-name">A</span>[<span class="face-number">10</span>];
+<span class="face-type">int</span> * <span class="face-variable-name">p</span>;
+
+<span class="face-variable-use">p</span> = &amp;(A[<span class="face-number">5</span>]);                  <span class="face-comment">/* p points to A[5] */</span>
+</code></pre>
+</div>
+
+<p>
+Notice that the <i>type</i> of the address-of expression is correct: <code>A[5]</code>
+identifies an object of type <code>int</code>, and therefore the address-of
+operator takes its address as an <code>int *</code> value (pointer to <code>int</code>),
+which is the same type declared for <code>p</code>.  So, we&rsquo;re good.
+</p>
+</div>
+</div>
+<div id="outline-container-orga439996" class="outline-3">
+<h3 id="orga439996">Pointer De-reference</h3>
+<div class="outline-text-3" id="text-orga439996">
+<p>
+We now have an <code>int i</code> and an <code>int * p</code> where <code>p</code> points to <code>i</code>.  We
+can now refer to <code>i</code> either by name or through <code>p</code>.  Here&rsquo;s the full
+example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdio.h&gt;</span>
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">i</span>;
+    <span class="face-type">int</span> * <span class="face-variable-name">p</span>;
+    <span class="face-variable-use">i</span> = <span class="face-number">7</span>;
+    <span class="face-variable-use">p</span> = &amp;i;
+    *<span class="face-variable-use">p</span> = <span class="face-number">8</span>;
+    printf (<span class="face-string">"i = %d</span><span class="face-escape">\n</span><span class="face-string">"</span>, i);
+}
+</code></pre>
+</div>
+
+<p>
+The expression <code>*p</code> is given by the <i>dereference</i> (or <i>indirection</i>)
+operator (<code>*</code>) applied to pointer <code>p</code>.  That expression identifies the
+object referenced, or &ldquo;pointed to&rdquo; by <code>p</code>.  And since <code>p</code> points to
+<code>i</code>, writing <code>*p</code> is equivalent to writing <code>i</code>.  For example, you can
+write <code>*p = *p + 1;</code> and that would be equivalent to writing
+<code>i = i + 1</code>.  
+I want to reemphasize that the expressions <code>i</code> and <code>*p</code> identify <i>the
+exact same object.</i>
+</p>
+</div>
+</div>
+<div id="outline-container-orgd5ca213" class="outline-3">
+<h3 id="orgd5ca213">Passing Pointers to Allow Functions to Manipulate our Data</h3>
+<div class="outline-text-3" id="text-orgd5ca213">
+<p>
+C uses <i>call-by-value</i> semantics.  What that means is that a function
+parameter is a <i>copy</i> of the arguments passed by the caller.  Which in
+turn means that no matter how the function changes the value of the
+parameters, those changes will not affect the arguments passed by the
+caller.  In other words, it would seem that functions can return a
+value to the caller, but other than that can not change the value of a
+variable of the caller context.
+</p>
+
+<p>
+This is of course a good thing, since you wouldn&rsquo;t want a function you
+call to mess around with your variable, would you?  Except that
+sometime that&rsquo;s exactly what you want.  For example, you might want to
+develop a very powerful function that reads some formatted data from
+the input and then returns that data to the caller.  If the data
+consists of a single value, say an <code>int</code>, then you can have the
+function return that value.  But what if you are reading, say, the
+coordinates of a 2D point?  How can you have your input-reading
+function return two <code>int</code> values?
+</p>
+
+<p>
+This is where pointers come to the rescue.  In fact, we have already
+seen a powerful input-reading function that can read multiple values.
+It&rsquo;s <code>scanf</code>.  So <code>scanf</code> can read two <code>int</code>, and to do that takes two
+<code>int</code> <i>pointers</i> as arguments, as in the example below:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;math.h&gt;</span>
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">xa</span>, <span class="face-variable-name">ya</span>;
+    <span class="face-type">int</span> <span class="face-variable-name">xb</span>, <span class="face-variable-name">yb</span>;
+    <span class="face-type">int</span> <span class="face-variable-name">first</span> = <span class="face-number">1</span>;
+    <span class="face-type">double</span> <span class="face-variable-name">len</span> = <span class="face-number">0</span>;
+    <span class="face-keyword">while</span> (scanf (<span class="face-string">" ( %d, %d)"</span>, &amp;xb, &amp;yb) == <span class="face-number">2</span>) {
+        <span class="face-keyword">if</span> (first) {
+            <span class="face-variable-use">first</span> = <span class="face-number">0</span>;
+        } <span class="face-keyword">else</span> {
+            <span class="face-variable-use">len</span> += sqrt((xb - xa)*(xb - xa) + (yb - ya)*(yb - ya));
+        }
+        <span class="face-variable-use">xa</span> = xb;
+        <span class="face-variable-use">ya</span> = yb;
+    }
+    printf (<span class="face-string">"polygon length = %lf</span><span class="face-escape">\n</span><span class="face-string">"</span>, len);
+}
+</code></pre>
+</div>
+
+<p>
+Did you try the example above?  Pretty neat, eh!?  Yeah&hellip; don&rsquo;t fool
+yourself!  I know you didn&rsquo;t try it.  How do I know?  Because that
+program uses the <code>sqrt</code> function from the math library, and most
+likely your compiler must be told to link that library.  Okay, perhaps
+you did compile and run the program, in which case I&rsquo;m super happy and
+I apologize for the unwarranted snarky tone.  Anyway, this is how you
+compile that program.  Assuming the code is in a source file
+<code>path_length.c</code>, do the following:
+</p>
+
+<pre class="example" id="org792941b">
+cc path_length.c -lm -o path_length
+</pre>
+
+<p>
+And now you can compute the length of a polygonal chain (with integer
+coordinates).  And notice the wonders of <code>scanf</code>.  You can read from a
+formatted input.  And did you notice that you can tell <code>scanf</code> to skip
+white spaces in the input?  Aren&rsquo;t you happy you went through the
+trouble of compiling that program now?!
+</p>
+
+<p>
+Another, very simple example of a function that is intended to
+manipulate variables from the caller context is the <code>swap</code> function.
+The idea is to swap the values of two variables, say <code>int</code> variables.
+How do we do that?   Simple, again, we pass the <i>pointers</i> to those
+integer variables.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;math.h&gt;</span>
+
+<span class="face-type">void</span> <span class="face-function-name">swap</span> (<span class="face-type">int</span> * <span class="face-variable-name">p</span>, <span class="face-type">int</span> * <span class="face-variable-name">q</span>) {
+    <span class="face-type">int</span> <span class="face-variable-name">tmp</span> = *p;
+    *<span class="face-variable-use">p</span> = *q;
+    *<span class="face-variable-use">q</span> = tmp;
+}
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">i</span> = <span class="face-number">7</span>;
+    <span class="face-type">int</span> <span class="face-variable-name">j</span> = <span class="face-number">5</span>;
+    swap (&amp;i, &amp;j);
+    printf (<span class="face-string">"i = %d</span><span class="face-escape">\n</span><span class="face-string">j = %d</span><span class="face-escape">\n</span><span class="face-string">"</span>, i, j);
+}
+</code></pre>
+</div>
+
+<p>
+Now, did you try this yourself?
+</p>
+
+<p>
+Good!
+</p>
+</div>
+</div>
+<div id="outline-container-org2f22fdb" class="outline-3">
+<h3 id="org2f22fdb">Pointer Types and <i>Void</i> Pointer</h3>
+<div class="outline-text-3" id="text-org2f22fdb">
+<p>
+In general, different pointer types are not compatible with each
+other.  This is true even when the types they point to are themselves
+compatible.  For example, <code>char *</code> is not compatible with <code>int *</code>,
+meaning that you are not allowed to assign a <code>char *</code> value to an
+<code>int *</code> object, even though assigning a <code>char</code> value to an <code>int</code> 
+object is perfectly okay.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-variable-name">i</span>;
+<span class="face-type">char</span> <span class="face-variable-name">c</span>;
+<span class="face-type">int</span> * <span class="face-variable-name">p</span>;                <span class="face-comment">/* pointer to int */</span>
+<span class="face-type">int</span> ** <span class="face-variable-name">pp</span>;              <span class="face-comment">/* pointer to pointer to int */</span>
+
+<span class="face-variable-use">c</span> = <span class="face-constant">'a'</span>; 
+<span class="face-variable-use">i</span> = c;                  <span class="face-comment">/* correct: types are compatible */</span>
+<span class="face-variable-use">p</span> = &amp;i;                 <span class="face-comment">/* correct: same type on both sides of = */</span>
+<span class="face-variable-use">p</span> = &amp;c;                 <span class="face-comment">/* error: assigning char * to int * */</span>
+<span class="face-variable-use">pp</span> = &amp;i;                <span class="face-comment">/* error: int* is not compatible with int** */</span>
+<span class="face-variable-use">pp</span> = &amp;p;                <span class="face-comment">/* correct: same type */</span>
+</code></pre>
+</div>
+
+<p>
+<b>Quiz 1:</b>  Show through an example that it would indeed be bad if
+<code>char *</code> were compatible with <code>int *</code>.
+</p>
+
+<p>
+In general, you want to be very careful about pointer types.  Still,
+it is useful to have a common, generic pointer type.  This generic
+pointer type exists in C but not in C++.  The type is <code>void *</code>.  So in
+C (but not in C++), any pointer type can be implicitly converted to
+and from a <code>void *</code>, and you can be sure that a pointer value remains
+consistent when copied through a <code>void *</code>.  Here&rsquo;s an example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-variable-name">i</span>;
+<span class="face-type">int</span> * <span class="face-variable-name">p</span>
+<span class="face-type">int</span> * <span class="face-variable-name">q</span>;
+<span class="face-type">void</span> * <span class="face-variable-name">x</span>;
+
+<span class="face-variable-use">p</span> = &amp;i;
+<span class="face-variable-use">x</span> = p;                          <span class="face-comment">/* x can take values of any pointer type */</span>
+<span class="face-variable-use">q</span> = x;                          <span class="face-comment">/* x can be converted into any pointer type */</span>
+
+assert (q == &amp;i);               <span class="face-comment">/* the implicit conversions maintain
+                                   the original pointer*/</span>
+</code></pre>
+</div>
+
+<p>
+As a universal pointer type, <code>void *</code> can be used to represent
+references to polymorphic objects.  For example, that is what you
+would do with an interface (reference) in Java.  Yet more generally,
+<code>void *</code> can be used whenever you want to refer to <i>any</i> object.  For
+example, we have seen that the standard <code>memcpy</code> function copies
+objects (referred by pointer) regardless of their type, and in fact
+<code>memcpy</code> is declared to take <code>void *</code> arguments:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">void</span> * <span class="face-function-name">memcpy</span> (<span class="face-type">void</span> * <span class="face-variable-name">dest</span>, <span class="face-keyword">const</span> <span class="face-type">void</span> * <span class="face-variable-name">src</span>, <span class="face-type">size_t</span> <span class="face-variable-name">n</span>);
+</code></pre>
+</div>
+
+<p>
+Not only you use <code>void *</code> when you don&rsquo;t care about the object type,
+you also do that when an object has yet to acquire a type.  Now, that
+sounds weird, but no worries, we&rsquo;ll talk about that soon enough.
+Anyway, in many cases, <code>void *</code> is your friend.
+</p>
+
+<p>
+Sounds good. But&hellip; is it?  Well, this is where things get a bit
+dicey.  And this is one of the reasons why C is not considered a
+type-safe language.  The astute reader would have realized that the
+promiscuous exchange of pointer values through the universally
+compatibile <code>void *</code> type allows for invalid transfers of object
+references that would not be permitted by direct assignment. Here&rsquo;s an
+example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">char</span> <span class="face-variable-name">c</span>;
+<span class="face-type">int</span> * <span class="face-variable-name">p</span>;
+<span class="face-type">void</span> * <span class="face-variable-name">x</span>;
+<span class="face-comment">/* This is not allowed: */</span>
+<span class="face-variable-use">p</span> = &amp;c;                         <span class="face-comment">/* error: char * is not compatible with int * */</span>
+
+<span class="face-comment">/* ...but this is allowed?! */</span>
+<span class="face-variable-use">x</span> = &amp;c;                         <span class="face-comment">/* okay: char * value assigned to void * */</span>
+<span class="face-variable-use">p</span> = x;                          <span class="face-comment">/* okay: void * value assigned to int * */</span>
+</code></pre>
+</div>
+
+<p>
+So yes, this is a pretty big hole in the type system of the C language
+(but not C++).  It is debatable whether this is a feature or a bug,
+especially in the context of <i>systems</i> programming.  I won&rsquo;t go into
+that right now.  But what I will say is that it is nothing to panic
+about, really.  Like other features of the C language, it is something
+the programmer has to understand in order to use it correctly.
+</p>
+
+<p>
+One left-over point about the use of <code>void *</code>.  What is this business
+of objects <i>acquiring</i> a type?  Does that mean that objects in C are
+like larvae that morph into caterpillars and then into butterflies?
+Well&hellip; Nah.  It&rsquo;s quite simple, really.  We&rsquo;ll see this in detail
+later, and many times after that, but here&rsquo;s a quick preview.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdlib.h&gt;</span>
+
+<span class="face-type">int</span> * <span class="face-function-name">new_array_ramp</span> (<span class="face-type">int</span> <span class="face-variable-name">n</span>) {  <span class="face-comment">/* return an array of n int */</span>
+    <span class="face-type">int</span> * <span class="face-variable-name">ramp</span> = malloc (n*<span class="face-keyword">sizeof</span>(<span class="face-type">int</span>));
+    <span class="face-keyword">if</span> (ramp != <span class="face-number">0</span>)
+        <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">i</span> = <span class="face-number">0</span>; i &lt; n; ++i)
+            <span class="face-variable-use">ramp</span>[<span class="face-variable-use">i</span>] = i;
+    <span class="face-keyword">return</span> ramp;
+}
+</code></pre>
+</div>
+
+<p>
+This function returns an array of <code>int</code> consisting of \(n\) elements
+whose values are initialized to \(0,1,\ldots,n-1\).  The array object is
+created (as a whole) with the standard <code>malloc</code> function.  <code>malloc</code>
+needs to know the size of the object, but not its type.  In fact,
+<code>malloc</code> returns a <code>void *</code> representing a pointer to a fresh portion
+of memory of the given size.  That object&mdash;the chunk of memory
+allocated and returned by <code>malloc</code>&mdash;has no declared type, and instead
+acquires an <i>effective</i> type with the first write operation.  The same
+goes for <code>memcpy</code>: if the destination object has no declared type, the
+destination acquires the effective type of the source.
+</p>
+</div>
+</div>
+<div id="outline-container-orgd496e57" class="outline-3">
+<h3 id="orgd496e57">The <i>Null</i> Pointer</h3>
+<div class="outline-text-3" id="text-orgd496e57">
+<p>
+Pointer values are platform dependent and totally irrelevant to the
+application semantics.  I know we said that already, but it&rsquo;s worth
+repeating.  There is no circumstance in which a programmer could use
+or even just assign a specific pointer value and be guaranteed to have
+a valid pointer, meaning a pointer corresponding to an address of a
+valid (live) object.  On the other hand, it is useful to have a
+pointer value guaranteed <i>not</i> to be a valid pointer.  That is what
+the &ldquo;null&rdquo; pointer is: a pointer value that will never be the address
+of an object.
+</p>
+
+<p>
+The null pointer can therefore be returned by functions that return
+pointers to indicate a failure or some other special condition.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> * <span class="face-variable-name">A</span> = malloc (<span class="face-keyword">sizeof</span>(<span class="face-type">int</span>)*<span class="face-number">100000</span>);
+    <span class="face-keyword">if</span> (A == <span class="face-constant">NULL</span>) {
+        printf (<span class="face-string">"Out of memory!</span><span class="face-escape">\n</span><span class="face-string">"</span>);
+        <span class="face-keyword">return</span> EXIT_FAILURE;
+    } <span class="face-keyword">else</span> {
+        <span class="face-type">int</span> <span class="face-variable-name">i</span>, <span class="face-variable-name">x</span>;
+        <span class="face-keyword">for</span> (<span class="face-variable-use">i</span> = <span class="face-number">0</span>; i &lt; <span class="face-number">100000</span> &amp;&amp; scanf (<span class="face-string">" %d"</span>, &amp;(A[i])) == <span class="face-number">1</span>; ++i);
+        <span class="face-keyword">while</span> (i &gt; <span class="face-number">0</span>)
+            printf (<span class="face-string">"%d</span><span class="face-escape">\n</span><span class="face-string">"</span>, A[--i]);
+        <span class="face-keyword">return</span> EXIT_SUCCESS;
+    }
+}
+</code></pre>
+</div>
+
+<p>
+The null pointer can also be used as the terminator value for data
+structures such as linked lists or trees.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-keyword">struct</span> <span class="face-type">linked_list</span> {
+    <span class="face-type">int</span> <span class="face-property-name">value</span>;
+    <span class="face-keyword">struct</span> <span class="face-type">linked_list</span> * <span class="face-variable-name">next</span>;
+};
+
+<span class="face-type">void</span> <span class="face-function-name">print_list</span> (<span class="face-keyword">const</span> <span class="face-keyword">struct</span> <span class="face-type">linked_list</span> * <span class="face-variable-name">l</span>) {
+    <span class="face-keyword">while</span> (l) {                 <span class="face-comment">/* null pointer == 0 (meaning false) */</span>
+        printf (<span class="face-string">"%d</span><span class="face-escape">\n</span><span class="face-string">"</span>, l-&gt;value);
+        <span class="face-variable-use">l</span> = l-&gt;next;
+    }
+}
+</code></pre>
+</div>
+
+<p>
+The <code>NULL</code> macro defined in <code>stdlib.h</code> and many other standard headers
+defines the null pointer value for C and C++ programs.  However, in
+C++ and also in the recent C23 version of C, you can and should use
+the <code>nullptr</code> keyword.  The numeric constant <code>0</code>, when used as a
+pointer, also denotes the null pointer.  In fact, the null pointer
+compares equal to 0, and therefore is interpreted as <i>false</i> when used
+as a Boolean expression.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org9d6f939" class="outline-2">
+<h2 id="org9d6f939">Arrays</h2>
+<div class="outline-text-2" id="text-org9d6f939">
+<p>
+An array is an object consisting of a sequence of contiguous objects
+of the same type.  We also call those objects the <i>elements</i> of the
+array.  For example, <code>int A[10];</code> declares an array of 10 <code>int</code>
+elements.  Each element can be accessed by its numeric index, starting
+from <code>0</code>.  Pretty obvious.  The size of the array, meaning the number
+of elements (but then also its size in bytes), stays the same for the
+entire lifetime of the array object.
+</p>
+</div>
+<div id="outline-container-org96b998e" class="outline-3">
+<h3 id="org96b998e">Arrays and Pointer Arithmetic</h3>
+<div class="outline-text-3" id="text-org96b998e">
+<p>
+Arrays are related to pointers.  Since the elements of an array are
+laid out in memory one after the other, there is a linear relation
+between the index of an element in the array and the pointer to that
+element.  But wait: we said many times that pointer values have no
+meaning, so how come now we treat them as numbers?  The trick is that
+we don&rsquo;t really care about the specific values of pointers.  Rather,
+we care about the <i>relation</i> between pointer values, and we abstract
+those relations in such a way that operations on indexes in an array
+correspond directly to analogous operations with pointers.  Let&rsquo;s see
+what all of this is about with an example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-variable-name">A</span>[<span class="face-number">10</span>];
+
+printf (<span class="face-string">"A:"</span>);
+<span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">i</span> = <span class="face-number">0</span>; i &lt; <span class="face-number">10</span>; ++i) {
+    <span class="face-variable-use">A</span>[<span class="face-variable-use">i</span>] = i*i;
+    printf (<span class="face-string">" %d"</span>, A[i]);
+}
+printf (<span class="face-string">"</span><span class="face-escape">\n</span><span class="face-string">"</span>);
+
+printf (<span class="face-string">"A:"</span>);
+<span class="face-keyword">for</span> (<span class="face-type">int</span> * <span class="face-variable-name">p</span> = &amp;(A[<span class="face-number">0</span>]); p != &amp;(A[<span class="face-number">10</span>]); ++p)
+    printf (<span class="face-string">" %d</span><span class="face-escape">\n</span><span class="face-string">"</span>, *p);
+printf (<span class="face-string">"</span><span class="face-escape">\n</span><span class="face-string">"</span>);
+</code></pre>
+</div>
+
+<p>
+In the firt loop, we use a regular-old index <code>i</code> to scan an array. In
+the second loop, we use a pointer.  Initially, the pointer takes the
+address of the first element of the array, <code>int * p = &amp;(A[0])</code>; then
+we access all the elements of the array, in sequence, by repeatedly
+<i>incrementing the pointer.</i> Again, the pointer values don&rsquo;t mean
+anything per-se, but the language defines the pointer increment <code>++p</code>
+such that the code works.  In particular, if <code>p</code> points to an element
+of an array, then <code>p+1</code> points to the next element.  More generally,
+if <code>p</code> points to the element in position \(i\) in the array and <code>n</code> is
+an integer, then <code>p + n</code> is a pointer that points to the element in
+position \((i+n)\) in the array.  This kind of sum between a pointer and
+an integer is illustrated in the example below:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-variable-name">A</span>[<span class="face-number">10</span>];
+
+printf (<span class="face-string">"A:"</span>);
+<span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">i</span> = <span class="face-number">0</span>; i &lt; <span class="face-number">10</span>; ++i) {
+    <span class="face-variable-use">A</span>[<span class="face-variable-use">i</span>] = i*i;
+    printf (<span class="face-string">" %d"</span>, A[i]);
+}
+printf (<span class="face-string">"</span><span class="face-escape">\n</span><span class="face-string">"</span>);
+
+printf (<span class="face-string">"A:"</span>);
+<span class="face-type">int</span> * <span class="face-variable-name">p</span> = &amp;(A[<span class="face-number">0</span>]);
+<span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">i</span> = <span class="face-number">0</span>; i &lt; <span class="face-number">10</span>; ++i) {
+    printf (<span class="face-string">" %d</span><span class="face-escape">\n</span><span class="face-string">"</span>, *(p + i));
+printf (<span class="face-string">"</span><span class="face-escape">\n</span><span class="face-string">"</span>);
+</code></pre>
+</div>
+
+<p>
+So again, if we have a pointer <code>p</code> pointing to some element of an
+array, we ca write <code>int * q = p + n;</code> where <code>n</code> is an integer and <code>q</code>
+points <code>n</code> elements down in the array.  It is therefore only natural
+to also define a <i>difference</i> operation between pointers.  For
+example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-variable-name">A</span>[<span class="face-number">10</span>];
+<span class="face-comment">/* ... */</span>
+<span class="face-type">int</span> * <span class="face-variable-name">p</span> = &amp;(A[<span class="face-number">0</span>]);
+<span class="face-keyword">for</span> (<span class="face-type">int</span> * <span class="face-variable-name">q</span> = p; q != p + <span class="face-number">10</span>; ++q) {
+    printf (<span class="face-string">"A[%ld] = %d</span><span class="face-escape">\n</span><span class="face-string">"</span>, q - p, *q);
+</code></pre>
+</div>
+
+<p>
+Everything we said so far about incrementing pointers, adding integers
+to pointers, and taking the difference between two pointers, works
+quite naturally, at least once you get the idea.  However, keep in
+mind that it works <i>only within an array.</i> More specifically, an
+arithmetic operation involving pointers is valid only when the
+pointers&mdash;the operands as well as the result&mdash;point to an element of
+the array or one-past the last element.  Here are a bunch of examples:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-variable-name">A</span>[<span class="face-number">10</span>];
+<span class="face-type">int</span> * <span class="face-variable-name">p</span> = &amp;(A[<span class="face-number">0</span>]);
+<span class="face-type">int</span> * <span class="face-variable-name">q</span> = p + <span class="face-number">3</span>;                <span class="face-comment">/* okay: q points to the 4th element in A */</span>
+</code></pre>
+</div>
+
+<p>
+In the expression <code>p + 3</code>, <code>p</code> points to an element of the array (the
+first one) and the result of <code>p + 3</code> is also within the array.  So,
+all good.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-variable-name">A</span>[<span class="face-number">10</span>];
+<span class="face-type">int</span> * <span class="face-variable-name">p</span> = &amp;(A[<span class="face-number">5</span>]);
+<span class="face-type">int</span> * <span class="face-variable-name">q</span> = p + <span class="face-number">5</span>;                <span class="face-comment">/* okay: one-past the last element of A */</span>
+</code></pre>
+</div>
+
+<p>
+Here <code>p</code> points to the fifth element of an array of 10 elements, so
+that is good, and <code>p + 5</code> points to one-past the last element of the
+array, which is also okay.  Notice that the resulting pointer <code>q</code> does
+not point to a valid live object.  So, dereferencing <code>q</code> would be a
+fatal error.  However, the pointer value is itself valid and can
+therefore be used in other expressions, for example in a comparison
+with another pointer value, as in the example of the for-loop above,
+which we reproduce below:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-variable-name">A</span>[<span class="face-number">10</span>];
+<span class="face-comment">/* ... */</span>
+<span class="face-type">int</span> * <span class="face-variable-name">p</span> = &amp;(A[<span class="face-number">0</span>]);
+<span class="face-keyword">for</span> (<span class="face-type">int</span> * <span class="face-variable-name">q</span> = p; q != p + <span class="face-number">10</span>; ++q) {
+    printf (<span class="face-string">"A[%ld] = %d</span><span class="face-escape">\n</span><span class="face-string">"</span>, q - p, *q);
+</code></pre>
+</div>
+
+<p>
+You see, the expression <code>p + 10</code> is valid, and its result is also
+valid, because it points to one-past the end of the array.  And in
+fact it is used precisely to exit the loop as soon as the other
+pointer, <code>q</code>, is incremented one-past the last element of the array.
+</p>
+
+<p>
+So, all of these are valid examples.  Let&rsquo;s see some invalid ones:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-variable-name">A</span>[<span class="face-number">10</span>];
+<span class="face-type">int</span> * <span class="face-variable-name">p</span> = &amp;(A[<span class="face-number">0</span>]);
+<span class="face-type">int</span> * <span class="face-variable-name">q1</span> = p + <span class="face-number">11</span>;              <span class="face-comment">/* ERROR: computing an out of bounds pointer */</span>
+<span class="face-type">int</span> * <span class="face-variable-name">q2</span> = p - <span class="face-number">1</span>;               <span class="face-comment">/* ERROR: computing an out of bounds pointer */</span>
+</code></pre>
+</div>
+
+<p>
+Notice that the expressions <code>p + 11</code> and <code>p - 1</code> are invalid&mdash;the
+resulting behavior is undefined&mdash;just because they compute invalid
+pointer values, even if those pointers are never dereferenced.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-variable-name">n</span>;
+<span class="face-type">int</span> <span class="face-variable-name">m</span>;
+<span class="face-type">int</span> * <span class="face-variable-name">p</span> = &amp;n;                   <span class="face-comment">/* okay: p is a valid pointer value */</span>
+<span class="face-type">int</span> * <span class="face-variable-name">q</span> = &amp;m;                   <span class="face-comment">/* okay: q is a valid pointer value */</span>
+<span class="face-type">int</span> <span class="face-variable-name">l</span> = q - p;                  <span class="face-comment">/* ERROR: p, q not within the same array */</span>
+</code></pre>
+</div>
+
+<p>
+The behavior of <code>q - p</code> is undefined.  The operands <code>p</code> and <code>q</code> must
+both point to objects in same array.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgae931ec" class="outline-2">
+<h2 id="orgae931ec">Strings</h2>
+<div class="outline-text-2" id="text-orgae931ec">
+<p>
+In C, a <i>string</i> is a sequence of <code>char</code> objects represented in memory
+as an array of <code>char</code>, and terminated by the <code>char</code> value <code>0</code>.  The
+nice thing about this representation is that all you need is a pointer
+to the first <code>char</code> in the sequence.  So, you can refer to a string
+with a simple local variable as follows:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-keyword">const</span> <span class="face-type">char</span> * <span class="face-variable-name">name</span> = <span class="face-string">"Nemo"</span>;
+</code></pre>
+</div>
+
+<p>
+To be clear, the string must be somewhere in memory, so you have to
+use that memory space, of course.  The point, though, is that you can
+refer to the string using a single pointer&mdash;a pointer to the first
+byte.  So, for example, you can pass a string to a function with only
+one parameter:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">unsigned</span> <span class="face-function-name">string_length</span> (<span class="face-keyword">const</span> <span class="face-type">char</span> * <span class="face-variable-name">s</span>);
+</code></pre>
+</div>
+
+<p>
+There are other ways to denote a sequence of <code>char</code> objects
+implemented as an array&mdash;or a sequence of any type of objects for
+that matter.  One way is to provide a pointer to the first object, and
+then the length of the sequence, meaning the number of objects.
+Another, essentially equivalent way is to provide a pointer to the
+first object and then another pointer to the first object past the
+last one in the sequence.  This latter representation is the basis for
+the concept of <i>iterator</i> that generalizes to many data structures
+well beyond arrays.  But I digress.  The point is, there are other
+representations, but those representations use <i>two</i> variables for one
+string.  And one variable is clearly better than two, right?!  So why
+are we even discussing this?
+</p>
+
+<p>
+Well, not so fast.  The representation with the terminator value has
+its problems, too.  One problem is that the sequence can not contain
+the terminator.  By definition.  Because the terminator (the <code>char</code>
+value <code>'\0'</code>) <i>terminates</i> the sequence.  You might say that the
+terminator would still be part of the sequence, like a period that
+terminates a sentence.  Okay, fine, have it your way.  But still, the
+terminator can not be <i>in the middle</i> of a string.  So, effectively,
+we have to give up a perfectly good <code>char</code> value to act as terminator.
+And by the way, we have to put that terminator in memory, so a
+five-byte string costs us <i>six</i> bytes of memory.
+</p>
+
+<p>
+But there is an even bigger problem.  How do you implement the
+<code>string_length</code> function declared above?  You can spin it however you
+like, but you&rsquo;re going to have to do something like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">size_t</span> <span class="face-function-name">string_length</span> (<span class="face-keyword">const</span> <span class="face-type">char</span> * <span class="face-variable-name">s</span>) {
+    <span class="face-type">size_t</span> <span class="face-variable-name">c</span> = <span class="face-number">0</span>;
+    <span class="face-keyword">while</span> (s[c] != <span class="face-number">0</span>)
+        ++c;
+    <span class="face-keyword">return</span> c;
+}
+</code></pre>
+</div>
+
+<p>
+And what&rsquo;s the problem with that?  The complexity is linear!  So, if
+you&rsquo;re not careful enough, you might pay severe performance penalties
+for trivial algorithms.  And this is true also for the <code>strlen</code>
+function of the standard library that computes the length of a string.
+So, don&rsquo;t write code like this:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-function-name">find_char_in_string</span> (<span class="face-type">char</span> <span class="face-variable-name">c</span>, <span class="face-keyword">const</span> <span class="face-type">char</span> * <span class="face-variable-name">s</span>) {
+    <span class="face-keyword">for</span> (<span class="face-type">size_t</span> <span class="face-variable-name">i</span> = <span class="face-number">0</span>; i &lt; strlen(s); ++i)
+        <span class="face-keyword">if</span> (s[i] == c)
+            <span class="face-keyword">return</span> <span class="face-number">1</span>;
+    <span class="face-keyword">return</span> <span class="face-number">0</span>;
+}
+</code></pre>
+</div>
+
+<p>
+That&rsquo;s bad.  Really bad.  You see why?!
+</p>
+
+<p>
+Notice that other string representations allow for a constant-time
+computation of the length of a string:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">size_t</span> <span class="face-function-name">string_length</span> (<span class="face-keyword">const</span> <span class="face-type">char</span> * <span class="face-variable-name">begin</span>, <span class="face-keyword">const</span> <span class="face-type">char</span> * <span class="face-variable-name">end</span>) {
+    <span class="face-keyword">return</span> end - begin;
+}
+</code></pre>
+</div>
+
+<p>
+There isn&rsquo;t much more to say about strings.  I mean, there&rsquo;s <i>a lot</i>
+to say and learn, for sure.  But it&rsquo;s just algorithms on arrays!  So,
+we&rsquo;ll stop here for now.
+</p>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+There are exceptions.  In C++, for some objects called
+&ldquo;polymorphic objects&rdquo;, the value of the object contains an identifier
+of the type of the object as well.  You want to know what a
+polymorphic object is, don&rsquo;t you?  You can start <a href="https://en.cppreference.com/w/cpp/language/object#Polymorphic_objects">here</a>.  But really, I
+don&rsquo;t suggest you go too deep in this digression.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+There are special cases: the size of a variable-length array is
+known only at run time.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3" role="doc-backlink">3</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+There are ways to implement dynamic data structures without
+pointers.  With arrays.  You don&rsquo;t even need to learn about <code>struct</code>
+types and objects.  You can do everything with nothing other arrays of
+basic types.  Aren&rsquo;t you curious to know how?  If you can&rsquo;t figure it
+out yourself, you should definitely ask your teacher!  It is
+instructive to try that technique, if for no other reason than to
+realize that what you end up doing is using array indexes as pointers,
+only in a more cumbersome, less convenient, and more error-prone way.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4" role="doc-backlink">4</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+The Java Language Specification calls all those things
+&ldquo;reference types&rdquo;, and the term &ldquo;reference&rdquo; is used throughout the
+specification, almost completely consistently.  Now, you might like
+&ldquo;reference&rdquo; better than &ldquo;pointer&rdquo;.  I won&rsquo;t argue with that.  But the
+point is that they are just different terms that denote the same
+concept. In fact, amusing enough, what do they call the runtime error
+caused by, say, a method call on a null reference?  That&rsquo;s right:
+<code>NullPointerException</code>.
+</p></div></div>
+
+
+</div>
+</div></div>
+</body>
+</html>

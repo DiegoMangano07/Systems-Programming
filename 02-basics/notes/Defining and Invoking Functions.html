@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-09-22 Tue 22:44 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Defining and Invoking Functions</title>
+<meta name="author" content="Antonio Carzaniga" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+ body { font-family: "Noto Sans", Helvetica, sans-serif;
+	font-size: medium;
+	padding: 2em;
+	margin: auto;
+	max-width: 50em; }
+ .title  { text-align: left;
+	   padding-bottom: 0.5ex;
+	   margin-bottom: 2ex;
+	   border-bottom: 2pt solid #000000; }
+.subtitle { text-align: right; font-size: medium; font-weight: bold; margin-top:0; }
+.todo   { font-family: "Hack", monospace; color: red; }
+.done   { font-family: "Hack", monospace; color: green; }
+.priority { font-family: "Hack", monospace; color: orange; }
+.tag    { background-color: #eeeeee; font-family: "Hack", monospace;
+	  padding: 2px; font-size: 80%; font-weight: normal; }
+.timestamp { color: #bebebe; }
+.timestamp-kwd { color: #5f9ea0; }
+.org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+.org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+.org-center { margin-left: auto; margin-right: auto; text-align: center; }
+.underline { text-decoration: underline; }
+h2 { border-top: 1pt solid #000000;
+     margin-top: 3ex; }
+#postamble p, #preamble p { font-size: 90%; margin: .2em; }
+p.verse { margin-left: 3%; }
+pre {
+    border: 1px solid #cccccc;
+    box-shadow: 3px 3px 3px #eeeeee;
+    padding: 8pt;
+    font-family: "Hack", monospace;
+    overflow: auto;
+    margin: 0;
+    background-color: #e8e8e8;
+}
+pre.src {
+    position: relative;
+    overflow: auto;
+}
+pre.example {
+    position: relative;
+    overflow: auto;
+    border-style: solid;
+    border-top-style: none;
+    border-bottom-style: none;
+    border-left-style: solid;
+    border-right-style: solid;
+    border-width: 6pt;
+    border-color: #d0d0d0;
+}
+code { 
+    font-family: "Hack", monospace;
+    padding-left: 1pt;
+    padding-right: 1pt;
+    background-color: #ebebeb;
+}
+a:link {
+    color: #603000;
+    text-decoration: none;
+    font-weight: bold; 
+}
+a:visited {
+    color: #603010;
+    text-decoration: none;
+    font-weight: bold; 
+}
+table { margin: auto; border-collapse:collapse; }
+thead { background-color: #f0f0f0; font-weight: bold; }
+caption.t-above { caption-side: top; }
+caption.t-bottom { caption-side: bottom; }
+td, th { vertical-align:top; }
+th.org-right  { text-align: center;  }
+th.org-left   { text-align: center;   }
+th.org-center { text-align: center; }
+td.org-right  { text-align: right;  }
+td.org-left   { text-align: left;   }
+td.org-center { text-align: center; }
+dt { font-weight: bold; }
+.footpara { display: inline; }
+.footdef  { margin-bottom: 1em; }
+.figure { padding: 1em; }
+.figure p { text-align: center; }
+.equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+}
+.equation {
+    vertical-align: middle;
+}
+.equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+}
+.inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+}
+#org-div-home-and-up { text-align: right; font-size: 70%; white-space: nowrap; }
+textarea { overflow-x: auto; }
+.linenr { font-size: smaller }
+.code-highlighted { background-color: #ffff00; }
+.org-info-js_info-navigation { border-style: none; }
+#org-info-js_console-label { font-size: 10px; font-weight: bold; white-space: nowrap; }
+.org-info-js_search-highlight { background-color: #ffff00; color: #000000; font-weight: bold; }
+.org-svg { }
+.face-builtin { color: #338033; }
+.face-comment { color: #5C7A99; }
+.face-comment-delimiter { color: #5C7A99; }
+.face-constant { color: #335980; }
+.face-doc { color: #80335A; }
+.face-function-name { color: #3D3380; font-weight: bold; }
+.face-keyword { color: #000000; font-weight: bold; }
+.face-preprocessor { color: #338033; }
+.face-string { color: #648033; font-style: italic; }
+.face-type { color: #803333; }
+.face-variable-name { color: #333380; }
+  /*]]>*/-->
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Defining and Invoking Functions</h1>
+<p>
+The logic of a C program is typically broken down into several
+functions.  A <i>function</i> encapsulates a specific procedure or
+functionality, such that the procedure can be &ldquo;called&rdquo; whenever and
+wherever needed.  A function can also call other functions, and can
+even call itself recursively, directly or indirectly.  The program
+starts by calling the <code>main</code> function, which is a bit special.  We now
+review functions as a language construct, as well as the mechanism and
+semantics of function call.  We also detail the <code>main</code> function.
+</p>
+<div id="outline-container-org1ddf6ee" class="outline-2">
+<h2 id="org1ddf6ee">Function Definition</h2>
+<div class="outline-text-2" id="text-org1ddf6ee">
+<p>
+At a very basic level, a function defines some code and gives it a
+name, so that the code can be referenced and ultimately executed from
+various parts of the program.  Functions are the most basic mechanism
+for modularization in C. A function most often encapsulate a general
+computation that can then be applied to specific data.  Thus a
+function can also take a set of <i>parameters</i> that can be used by the
+caller to tell the function what to do, as we&rsquo;ll see in detail later.
+</p>
+
+<p>
+As an example, consider a game program that needs to print the game
+score in many phases of the game and therefore in many parts of the
+program.  The code that prints the score could be encapsulated in a
+function called <code>print_score</code> such as the one displayed below. The
+function is defined with a parameter called <code>points</code> that represents
+the score to be printed.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">void</span> <span class="face-function-name">print_score</span> (<span class="face-type">int</span> <span class="face-variable-name">points</span>) {
+    <span class="face-keyword">if</span> (points &lt; <span class="face-number">0</span>) {
+        printf(<span class="face-string">"Something is wrong: your score is negative!</span><span class="face-escape">\n</span><span class="face-string">"</span>);
+    } <span class="face-keyword">else</span> {
+        printf(<span class="face-string">"You have %d point"</span>, points);
+        <span class="face-keyword">if</span> (points != <span class="face-number">1</span>)
+            printf(<span class="face-string">"s"</span>);
+        printf(<span class="face-string">"</span><span class="face-escape">\n</span><span class="face-string">"</span>);
+    }   
+}
+</code></pre>
+</div>
+
+<p>
+Functions are also often intended to compute something for the caller.
+So a function can also return a value.  The type of the return value
+is also specified in the function declaration or definition.  The
+<code>print_score</code> function is declared as having a <code>void</code> return type, but
+that isn&rsquo;t a real object type, and instead means that the function
+does not return a value at all.  Any other return type specification
+indicates that the function returns some value to the caller.  Here&rsquo;s
+an example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-function-name">is_prime</span> (<span class="face-type">int</span> <span class="face-variable-name">n</span>) {
+    <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">d</span> = <span class="face-number">2</span>; d*d &lt;= n; ++d)
+        <span class="face-keyword">if</span> (n % d == <span class="face-number">0</span>)
+            <span class="face-keyword">return</span> <span class="face-number">0</span>;
+    <span class="face-keyword">return</span> <span class="face-number">1</span>;
+}
+</code></pre>
+</div>
+
+<p>
+This should be pretty clear. So, let&rsquo;s move on to the semantics of
+function calls.
+</p>
+</div>
+</div>
+<div id="outline-container-org7067f45" class="outline-2">
+<h2 id="org7067f45">Function Calls</h2>
+<div class="outline-text-2" id="text-org7067f45">
+<p>
+This is an example of a program that <i>calls</i> the <code>is_prime</code> function
+defined above.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">i</span> = <span class="face-number">1</span>; i &lt; <span class="face-number">100</span>; ++i)
+        printf (<span class="face-string">"%d -&gt; %d</span><span class="face-escape">\n</span><span class="face-string">"</span>, i, is_prime(i));
+}
+</code></pre>
+</div>
+
+<p>
+Did you see the function invocation in there?  (Don&rsquo;t just skip or
+skim the code!)  Here the value returned by <code>is_prime(i)</code> is used
+directly as an argument to another function invocation (<code>printf</code>).  In
+fact, a function invocation is an expression that can therefore be
+used as a sub-expression.  Alright, alright.  I know what you&rsquo;re
+thinking.  This is pretty simple: you first define a function <code>f</code> that
+you then call in other expressions&mdash;big deal, let&rsquo;s move on.  True,
+this should be pretty straightforward.  Things can get a bit more
+complicated in C/C++, since in addition to referring to a function by
+name, you can in fact do that with an arbitrarily complex expression.
+But that is a feature that we&rsquo;ll see some other time.
+</p>
+
+<p>
+What we should discuss instead is the semantics of function calls, and
+in particular the way that the invocation determines the values of the
+parameters seen by the code of the function.  This, too, <i>should</i> be
+already pretty clear, but a quick refresher is definitely worth our
+while.  The rule can be stated very simply with a bit of technical
+lingo: in C, function calls are <i>always call-by-value.</i> Now, I assume
+you understand the term <i>always.</i> It isn&rsquo;t a technical term: it means
+ALWAYS, IN ALL CASES.  But what do we mean by <i>call-by-value</i>?  This
+one is also simple, but let&rsquo;s review.  We first of all need to clearly
+distinguish the <i>parameters,</i> which are listed in the function
+definition, from the <i>arguments,</i> which are the expressions used in a
+function call.  Here comes the example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-function-name">gcd</span> (<span class="face-type">int</span> <span class="face-variable-name">a</span>, <span class="face-type">int</span> <span class="face-variable-name">b</span>) {        <span class="face-comment">/* parameters: int a, int b */</span>
+    <span class="face-keyword">while</span> (a != b) {
+        <span class="face-keyword">if</span> (a &gt; b) {
+            <span class="face-variable-use">a</span> -= b;
+        } <span class="face-keyword">else</span> {
+            <span class="face-variable-use">b</span> -= a;
+        }
+    }
+    <span class="face-keyword">return</span> a;
+}
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">n</span>, <span class="face-variable-name">m</span>, <span class="face-variable-name">d</span>;
+    printf(<span class="face-string">"input  two non-negative integers: "</span>); 
+    scanf(<span class="face-string">"%d%d"</span>, &amp;n, &amp;m);
+    <span class="face-variable-use">d</span> = gcd(n,m);               <span class="face-comment">/* arguments: a &lt;- n; b &lt;- m; */</span>
+    printf(<span class="face-string">"the least common multiple between %d and %d is %d</span><span class="face-escape">\n</span><span class="face-string">"</span>, n, m, n/d*m);
+}
+</code></pre>
+</div>
+
+<p>
+We define a <code>gcd</code> function with two <i>parameters:</i> <code>int a</code> and <code>int b</code>,
+and we then <i>call</i> that function with <i>arguments</i> <code>n</code> and <code>m</code>.  The
+parameters are variable declarations.  The arguments don&rsquo;t have to be
+variable names and instead can be arbitrary expressions.  For example,
+we might as well have called <code>gcd (n+7, m*2 + 1)</code>.  So, what happens
+when the program executes the function call?  The call executes the
+code of the function with the parameters defined as additional local
+variables each initialized with the corresponding argument.  This is
+what we mean by <i>call-by-value.</i> Got it?  (Feel free to go back and
+read this paragraph one more time!)  The following code illustrates
+what happens in the execution of the <code>main</code> function of the example
+above.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-type">int</span> <span class="face-function-name">main</span> () {
+    <span class="face-type">int</span> <span class="face-variable-name">n</span>, <span class="face-variable-name">m</span>, <span class="face-variable-name">d</span>;
+    printf(<span class="face-string">"input  two non-negative integers: "</span>); 
+    scanf(<span class="face-string">"%d%d"</span>, &amp;n, &amp;m); 
+    <span class="face-type">int</span> <span class="face-variable-name">gcd_return_value</span>;       <span class="face-comment">/* code equivalent to: gcd (n,m) */</span>
+    {                           <span class="face-comment">/*                         / /   */</span>
+        <span class="face-type">int</span> <span class="face-variable-name">a</span> = n;              <span class="face-comment">/* &lt;----------------------' /    */</span>
+        <span class="face-type">int</span> <span class="face-variable-name">b</span> = m;              <span class="face-comment">/* &lt;-----------------------'     */</span>
+        <span class="face-keyword">while</span> (a != b) {        <span class="face-comment">/* parameters passed _by value_  */</span>
+            <span class="face-keyword">if</span> (a &gt; b) {
+                <span class="face-variable-use">a</span> -= b;
+            } <span class="face-keyword">else</span> {
+                <span class="face-variable-use">b</span> -= a;
+            }
+        }
+        <span class="face-variable-use">gcd_return_value</span> = a; 
+    }
+    <span class="face-variable-use">d</span> = gcd_return_value; 
+    printf(<span class="face-string">"the least common multiple between %d and %d is %d</span><span class="face-escape">\n</span><span class="face-string">"</span>, n, m, n/d*m);
+}
+</code></pre>
+</div>
+
+<p>
+The code above is an in-line inclusion of the code corresponding to
+the call <code>gcd(n,m)</code>, and it is exactly equivalent to the actual
+execution of that call.  The key point here is that, with
+call-by-value semantics, the code of the function operates on <i>copies</i>
+of the arguments that therefore will never be modified by the function
+(not directly, that is).
+</p>
+</div>
+</div>
+<div id="outline-container-orgd372b94" class="outline-2">
+<h2 id="orgd372b94">The <i>main</i> Function</h2>
+<div class="outline-text-2" id="text-orgd372b94">
+<p>
+The execution of a program starts with the <code>main</code> function.  As an
+entry point into the program, the <code>main</code> function serves as an
+interface to the invocation of the program.  The specific mechanisms
+by which programs are invoked are platform specific and are outside
+the scope of C/C++.  What C and C++ provide is an interface whereby,
+through the <code>main</code> function, a program can access an array of strings
+representing the arguments with which the program is invoked.  The
+following is a program that prints all its invocation arguments:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdio.h&gt;</span>
+<span class="face-type">int</span> <span class="face-function-name">main</span> (<span class="face-type">int</span> <span class="face-variable-name">argc</span>, <span class="face-type">char</span> * <span class="face-variable-name">argv</span> []) {
+    <span class="face-keyword">for</span> (<span class="face-type">int</span> <span class="face-variable-name">i</span> = <span class="face-number">0</span>; i &lt; argc; ++i) {
+        printf (<span class="face-string">"arg[%d] = </span><span class="face-escape">\"</span><span class="face-string">%s</span><span class="face-escape">\"\n</span><span class="face-string">"</span>, i, argv[i]);
+    }
+}
+</code></pre>
+</div>
+
+<p>
+The <code>main</code> function takes an array of strings represented with two
+parameters: an integer typically called <code>argc</code> (short for &ldquo;argument
+count&rdquo;) that gives you the number of arguments, and an array of
+strings typically called <code>argv</code> (short for &ldquo;argument vector&rdquo;) that
+contains the values of those arguments.  The declaration of <code>char *
+argv[]</code> might be a bit cryptic.  Intuitively, it means that <code>argv</code>
+refers to an array of &ldquo;strings,&rdquo; each one being a reference to an
+array of characters.  Intuitively?!  Okay, no worries, breathe
+normally.  We&rsquo;ll explain the ins and outs and what-have-you&rsquo;s of
+<code>char * argv[]</code>.  For now, let&rsquo;s connect all this with the invocation
+of the program, and an example.
+</p>
+
+<p>
+We typically invoke programs using a command shell.  I mean, <i>we
+hackers</i> typically use a command shell.  And as hackers, we like to
+understand exactly what happens between the shell and the C program we
+invoke through the shell.  Here is a common example that uses the <code>ls</code>
+program.
+</p>
+
+<pre class="example" id="org925f4cd">
+$ ls -l *.c
+</pre>
+
+<p>
+The shell breaks down this command &ldquo;line&rdquo; into a list of components,
+interpreting spaces as separators, and also expanding some special
+characters (or other commands).  In this case, the shell expands <code>*.c</code>
+into the list of file names in the current directory that end with
+<code>.c</code> (suffix).  So, suppose there are two such files in the current
+directory called <code>hello.c</code> and <code>printargs.c</code>.  So, the shell breaks
+down the command line into the sequence <code>ls</code> <code>-l</code> <code>hello.c</code>
+<code>printargs.c</code>.  Then the shell looks for an executable program called
+<code>ls</code>, and if it finds one, say <code>/bin/ls</code>, it invokes that program with
+the argument vector <code>ls</code> <code>-l</code> <code>hello.c</code> <code>printargs.c</code>, such that the
+main function in <code>/bin/ls</code> is called with <code>argc = 4</code> and <code>argv =
+{"ls", "-l", "hello.c", "printargs.c"}</code>.  To see this clearly, compile
+the above program into an executable called <code>printargs</code> in the current
+directory, and run it with the the same arguments in the <code>ls</code> command.
+This is what you should get:
+</p>
+
+<pre class="example" id="orgd32a132">
+$ ./printargs -l *.c
+arg[0] = "./printargs"
+arg[1] = "-l"
+arg[2] = "hello.c"
+arg[3] = "printargs.c"
+</pre>
+
+<p>
+The <code>main</code> function is a bit special.  It cannot be used anywhere in
+the program, so it cannot be called (recursively).  It is declared as
+having an <code>int</code> return value, but it doesn&rsquo;t have to contain a
+<code>return</code> statement.  If it terminates without executing a return
+statement, it still effectively returns <code>0</code>.  The return value
+represents the exit status of the program.  The specific
+interpretation of the exit status is system dependent.  However, the
+<code>stdlib.h</code> header defines two constants, <code>EXIT_SUCCESS</code> and
+<code>EXIT_FAILURE</code>, that represent a &ldquo;success&rdquo; or &ldquo;failure&rdquo; status,
+respectively. For example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><code><span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdio.h&gt;</span>
+<span class="face-preprocessor">#include</span> <span class="face-string">&lt;stdlib.h&gt;</span>
+
+<span class="face-type">int</span> <span class="face-function-name">main</span> (<span class="face-type">int</span> <span class="face-variable-name">argc</span>, <span class="face-type">char</span> * <span class="face-variable-name">argv</span> []) {
+    <span class="face-keyword">if</span> (argc == <span class="face-number">2</span>) {
+        printf (<span class="face-string">"Ciao %s!</span><span class="face-escape">\n</span><span class="face-string">"</span>, argv[<span class="face-number">1</span>]);
+        <span class="face-keyword">return</span> EXIT_SUCCESS;
+    } <span class="face-keyword">else</span> {
+        printf (<span class="face-string">"usage: %s &lt;your-name&gt;</span><span class="face-escape">\n</span><span class="face-string">"</span>, argv[<span class="face-number">0</span>]);
+        <span class="face-keyword">return</span> EXIT_FAILURE;
+    }
+}
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
